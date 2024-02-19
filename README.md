@@ -1,9 +1,5 @@
-# beat-task
-Manajemen tugas dengan perhitungan waktu penyelesaian tugas berdasarkan tingkat kesibukan mahasiswa.
-
-#Beat Task 
-Atur Tugas dan Kesibukan
-Kelompok Enum 
+# Beat Task 
+Manajemen tugas dengan perhitungan waktu penyelesaian tugas berdasarkan tingkat kesibukan mahasiswa.Kelompok Enum 
 Ketua Kelompok: 
 Anggota 1: 
 Anggota 2: 
