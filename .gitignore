@@ -1,0 +1,30 @@
+# Ignore environment variables
+/backend/.env.dev
+/backend/.env.staging
+/backend/.env.production
+backend/.env
+
+# Ignore build files
+backend/build/
+
+# Ignore Next.js build output
+backend/.next/
+backend/out/
+
+# Ignore node_modules directory
+backend/node_modules/
+
+# Ignore npm debug log
+backend/npm-debug.log*
+
+# Ignore yarn lock file
+backend/yarn.lock
+
+# Ignore VSCode configuration files
+backend/.vscode/
+
+# Ignore macOS system files
+backend/.DS_Store
+
+# Ignore log files
+backend/*.log
