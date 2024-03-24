@@ -49,6 +49,30 @@ const userSchema = new Schema({
       },
     },
   ],
+  activity: [
+    {
+      activityName: {
+        type: String,
+        required: true,
+      },
+      activityStart: {
+        type: Date,
+        required: true,
+      },
+      activityEnd: {
+        type: Date,
+        required: true,
+      },
+      repeatVar: {
+        type: String,
+        required: true,
+      },
+      repeatInterval: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model('User', userSchema);
