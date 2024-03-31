@@ -7,7 +7,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  userName: {
+  username: {
     type: String,
     required: true,
     unique: true,
@@ -73,6 +73,6 @@ const userSchema = new Schema({
       },
     },
   ],
-});
+}, {collection: 'users'});
 
 module.exports = mongoose.model('User', userSchema);
