@@ -1,16 +1,31 @@
-function signUp(userData) {
-    // Logic to create a new user in the database
-    return Promise.resolve('User signed up successfully');
-  }
-  
-  function signIn(username, password) {
-    // Logic to authenticate user based on username and password
-    // Generate and return JWT token upon successful authentication
-    const token = 'example_jwt_token';
-    return Promise.resolve(token);
-  }
-  
-  module.exports = {
+const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+const config = require('../config/config');
+
+async function signUp(userData) {
+    try {
+        const user = new User(userData);
+        await user.save();
+        return 'User signed up successfully';
+    } catch (error) {
+        throw new Error('Error while signing up user');
+    }
+}
+
+async function signIn(username, password) {
+    try {
+        const user = await User.findOne({ username, password });
+        if (!user) {
+            throw new Error('Invalid username or password');
+        }
+        const token = jwt.sign({ userId: user._id }, config.JWT_SECRET);
+        return token;
+    } catch (error) {
+        throw new Error('Error while signing in user');
+    }
+}
+
+module.exports = {
     signUp,
     signIn
-  };
+};

@@ -5,10 +5,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
+const authMiddleware = require('./middlewares/authMiddleware');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const activityRoutes = require('./routes/activityRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
 
@@ -44,13 +47,15 @@ app.use(morgan('dev'));
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.send('Hello World !!');
+  res.send('Hello, Beat-Task Here !!!');
 });
 
 // Routes
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
+app.use('/api/users', authMiddleware.authenticateToken, userRoutes);
+app.use('/api/activities', authMiddleware.authenticateToken, activityRoutes);
+app.use('/api/tasks', authMiddleware.authenticateToken, taskRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
