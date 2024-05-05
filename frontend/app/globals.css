@@ -6,6 +6,13 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --purple: #2E3E74;
+  --yellow: #FDF6D4;
+  --lightblue: #EEF2F5;
+  --darkeryellow: #B38958;
+  --darkgreen: #50727B;
+  --lightpurple: #D2D4DF;
+  --gray: #55565A;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,4 +37,123 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.img-logo {
+	width: 220px;
+	height:220px;
+}
+
+.img-logo1 {
+	width: 170px;
+	height:170px;
+}
+
+.img-logo2 {
+	width: 50px;
+	height:50px;
+}
+
+.img-profile {
+	width: 100px;
+	height:100px;
+}
+
+.bg-purple {
+  background: var(--purple);
+}
+
+.bg-yellow {
+  background: var(--yellow);
+}
+
+.bg-darkeryellow {
+  background: var(--darkeryellow);
+}
+
+.bg-lightblue {
+  background: var(--lightblue);
+}
+
+.bg-lightpurple {
+  background: var(--lightpurple);
+}
+
+.bg-darkgreen {
+  background: var(--darkgreen);
+}
+
+.text-purple {
+  color: var(--purple);
+}
+
+.text-yellow {
+  color: var(--yellow);
+}
+
+.text-gray {
+  color: var(--gray);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+label {
+  width: 150px;
+  margin-right: 10px;
+}
+
+.border-purple {
+  color: var(--purple);
+}
+
+.line {
+  width: 97%; /* Adjust width as needed */
+  height: 1px; /* Adjust height for line thickness */
+  background-color: #999; /* Set line color */
+  margin-top: 3px; /* Adjust margin for line position */
+  margin-left: 20px;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.gap-2 > button {
+  margin: 0 5px; /* Menambahkan jarak 5px di sekitar setiap tombol */
+}
+
+.open-button {
+  background-color: #D2D4DF; /* White background color */
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 15px; /* Rounded corners */
+  padding: 4px 12px; /* Padding for spacing */
+  color: #2E3E74; /* Dark gray text color */
+  font-weight: bold; /* Bold font weight */
+}
+
+.close-button {
+  color: #999; /* Dark gray text color */
+  font-weight: semibold; /* Bold font weight */
+}
+
+.yellow-bar {
+  background-color: #D2D4DF; /* White background color */
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 15px; /* Rounded corners */
+  padding: 4px 12px; /* Padding for spacing */
+  color: #2E3E74; /* Dark gray text color */
+  font-weight: bold; /* Bold font weight */
 }
