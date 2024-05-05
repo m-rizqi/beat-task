@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import {FiEye, FiEyeOff} from "react-icons/fi";
-import {useState} from "react";
-import Link from "next/link";
-import Head from "next/head";
+import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { useState } from 'react';
+import Link from 'next/link';
+import Head from 'next/head';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import {useLogin} from "@/hooks/useCookies";
@@ -32,28 +32,25 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function UserLogin() {
   const [userInfo, setUserInfo] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
-  const {username, password} = userInfo;
+  const { username, password } = userInfo;
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
-  const handleChange = ({target}) => {
-    const {name, value} = target;
-    setUserInfo({...userInfo, [name]: value});
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setUserInfo({ ...userInfo, [name]: value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/auth/signin`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userInfo),
-        }
-      );
+      const res = await fetch(`http://localhost:4000/api/auth/signin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      });
       if (res.status === 401) throw new Error('Invalid username or password');
       const data = await res.json();
       console.log(data);
@@ -74,25 +71,24 @@ export default function UserLogin() {
         <div className="flex flex-col md:flex-row bg-white rounded-2xl shadow-2xl w-11/12">
           {/* logo section */}
           <div className="flex p-5 bg-purple text-white rounded-tl-2xl rounded-tr-2xl md:rounded-bl-2xl md:rounded-tr-none flex-col items-center justify-center md:w-1/2">
-            <img
-              src="/assets/logo.png"
-              className="img-logo1 mb-6"
-              alt="Logo"
-            />
+            <img src="/assets/logo.png" className="img-logo1 mb-6" alt="Logo" />
             <div className="py-2">
               <h2 className="text-3xl font-bold mb-7">Beat Task!</h2>
             </div>
             <p className="px-11 text-sm leading-6 text-white">
-            Beat Task is an intuitive task scheduler application designed to 
-            help you efficiently manage your time and conquer your daily tasks with ease.
-            Stay organized, focused, and ahead of your schedule with Beat Task!
+              Beat Task is an intuitive task scheduler application designed to
+              help you efficiently manage your time and conquer your daily tasks
+              with ease. Stay organized, focused, and ahead of your schedule
+              with Beat Task!
             </p>
           </div>
 
           {/* login */}
           <div className="px-24 md:w-1/2">
             <div className="py-2">
-              <h2 className="text-3xl text-purple font-bold mt-11 mb-3">Welcome back!</h2>
+              <h2 className="text-3xl text-purple font-bold mt-11 mb-3">
+                Welcome back!
+              </h2>
             </div>
             <p className="text-gray-400 mb-10">login into your account</p>
             <form
@@ -123,7 +119,7 @@ export default function UserLogin() {
                       value={password}
                       name="password"
                       label="Password"
-                      type={isPasswordHidden ? "password" : "show"}
+                      type={isPasswordHidden ? 'password' : 'show'}
                       placeholder="Enter password"
                       className="border-2 border-main-black/20 focus:border-dark-green-1 focus:outline-none rounded-2xl px-6 py-3 w-full bg-gray-100"
                       required
