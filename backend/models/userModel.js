@@ -7,7 +7,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  userName: {
+  username: {
     type: String,
     required: true,
     unique: true,
@@ -21,34 +21,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  tasks: [
-    {
-      taskName: {
-        type: String,
-        required: true,
-      },
-      taskDescription: {
-        type: String,
-        required: true,
-      },
-      taskDeadline: {
-        type: Date,
-        required: true,
-      },
-      taskStatus: {
-        type: String,
-        required: true,
-      },
-      taskPriority: {
-        type: String,
-        required: true,
-      },
-      taskDifficulty: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
-});
+}, {collection: 'users'});
 
 module.exports = mongoose.model('User', userSchema);
