@@ -4,6 +4,8 @@ import {FiEye, FiEyeOff} from "react-icons/fi";
 import {useState} from "react";
 import Link from "next/link";
 import Head from "next/head";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import {useLogin} from "@/hooks/useCookies";
 
 // async function handleLogin(body) {
@@ -39,9 +41,28 @@ export default function UserLogin() {
     const {name, value} = target;
     setUserInfo({...userInfo, [name]: value});
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    handleLogin(userInfo);
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/auth/signin`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        }
+      );
+      if (res.status === 401) throw new Error('Invalid username or password');
+      const data = await res.json();
+      console.log(data);
+      document.cookie = `token=${data.token}; path=/`;
+      window.location.href = '/';
+    } catch (err) {
+      console.error(err);
+      toast.error('Invalid username or password');
+    }
   };
   return (
     <div className="flex items-center justify-center min-h-screen bg-reg-bg bg-cover">
