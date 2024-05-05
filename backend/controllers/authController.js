@@ -1,4 +1,3 @@
-
 const userService = require('../services/userService');
 
 async function signUp(req, res) {
@@ -16,7 +15,7 @@ async function signIn(req, res) {
     const token = await userService.signIn(username, password);
     res.json({ token });
   } catch (error) {
-    res.status(401).json({ error: 'Invalid credentials' });
+    res.status(401).json({ error: error.message });
   }
 }
 
