@@ -1,41 +1,60 @@
-"use client";
+'use client';
 
-import {useState} from "react";
-import Head from "next/head";
-import Link from "next/link";
+import { useState } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UserRegister() {
   const [userInfo, setUserInfo] = useState({
-    name: "",
-    username: "",
-    email: "",
-    telp: "",
-    password: "",
-    // confirmPassword: "",
+    name: '',
+    username: '',
+    email: '',
+    // telp: "",
+    password: '',
+    confirmPassword: '',
   });
-  const {name, username, email, telp, password, confirmPassword} = userInfo;
-  const handleChange = ({target}) => {
-    const {name, value} = target;
-    setUserInfo({...userInfo, [name]: value});
+  const { name, username, email, password, confirmPassword } = userInfo;
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setUserInfo({ ...userInfo, [name]: value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       !name ||
       !username ||
       !email ||
-      !telp ||
+      // !telp ||
       !password ||
       !confirmPassword
     ) {
-      console.error("Please fill all the fields!");
+      toast.error('Please fill all the fields!');
       return;
     }
     if (password !== confirmPassword) {
-      console.error("Passwords don't match!");
+      toast.error('Confirmation password did not match!');
       return;
     }
-    // handleRegister(userInfo); 
+    // handleRegister(userInfo);
+    try {
+      const res = await fetch(`http://localhost:4000/api/auth/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, username, email, password }),
+      });
+      if (res.status === 401) throw new Error(res.body);
+      const data = await res.json();
+      console.log(data);
+      toast.success('User registered successfully!');
+      window.location.href = '/login';
+    } catch (err) {
+      console.error(err);
+      toast.error('Error while registering user!');
+    }
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -45,16 +64,13 @@ export default function UserRegister() {
       <main className="bg-reg-bg bg-cover flex-row flex items-center justify-center w-full flex-1 py-100 text-center">
         {/* Logo section */}
         <div className="w-1/2 p-5 flex flex-col items-center justify-center">
-          <img
-            src="/assets/logo.png"
-            className="img-logo mb-5 "
-            alt="Logo"
-          />
+          <img src="/assets/logo.png" className="img-logo mb-5 " alt="Logo" />
           <div className="py-2">
-              <h2 className="text-5xl font-bold text-white mt-7 mb-7">Beat Task!</h2>
-            </div>
+            <h2 className="text-5xl font-bold text-white mt-7 mb-7">
+              Beat Task!
+            </h2>
+          </div>
         </div>
-        
 
         {/* Regis section */}
         <div className="bg-white min-h-screen w-6/12 flex flex-col justify-center">
@@ -118,7 +134,7 @@ export default function UserRegister() {
                   />
                 </div>
               </div>
-              <div className="flex flex-col gap-2">
+              {/* <div className="flex flex-col gap-2">
                 <label className="font-medium text-base text-left">
                   Phone number
                 </label>
@@ -133,7 +149,7 @@ export default function UserRegister() {
                     required
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="flex flex-col gap-2">
                 <label className="font-medium text-base text-left">
                   Password
