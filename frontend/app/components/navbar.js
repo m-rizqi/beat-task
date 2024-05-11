@@ -17,10 +17,10 @@ export default function Navbar() {
                     </div>
                     <div>
                         <div className="ml-4 flex items-center space-x-4">
-                            <a href="" className="text-white hover:bg-white hover:text-black rounded-lg p-2">
+                            <a href="/" className="text-white hover:bg-white hover:text-black rounded-lg p-2">
                                 Home
                             </a>
-                            <a href="" className="text-white hover:bg-white hover:text-black rounded-lg p-2">
+                            <a href="/schedule" className="text-white hover:bg-white hover:text-black rounded-lg p-2">
                                 Schedule
                             </a>
                             <a href="" className="text-white hover:bg-white hover:text-black rounded-lg p-2">
