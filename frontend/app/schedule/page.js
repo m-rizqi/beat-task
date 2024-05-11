@@ -2,7 +2,9 @@
 
 import Navbar from "../components/navbar";
 import Modal from "../components/modal";
-import { Fragment, useState } from "react";
+import ScheduleCard from "../components/scheduleCard";
+import HomeCard from "../components/homeCard";
+import { useState } from "react";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
@@ -113,10 +115,20 @@ export default function Home() {
         <button class="close-button">Task</button>
         <button class="open-button" >Activity</button>
       </div>
-      <div className="flex flex-row justify-between mx-16 mt-4">
-        <div class="yellow-bar">To Do</div>
-        <div>In Progress</div>
-        <div>Done</div>
+      <div className="flex flex-row justify-center gap-10 mt-5">
+        <div>
+          <div class="bg-yellow px-36 py-1 font-bold mb-3">To Do</div>
+          <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
+          <button className="text-lg font-medium text-lightgray p-3 mt-3">+ Add Activity</button>
+        </div>
+        <div>
+          <div class="bg-yellow px-36 py-1 font-bold mb-3">In Progress</div>
+          <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
+        </div>
+        <div>
+          <div class="bg-yellow px-36 py-1 font-bold mb-3">Done</div>
+          <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
+        </div>
       </div>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
       

@@ -13,6 +13,7 @@
   --darkgreen: #50727B;
   --lightpurple: #D2D4DF;
   --gray: #55565A;
+  --lightgray: #b7b3b3;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -63,10 +64,6 @@ body {
   background: var(--purple);
 }
 
-.bg-yellow {
-  background: var(--yellow);
-}
-
 .bg-darkeryellow {
   background: var(--darkeryellow);
 }
@@ -93,6 +90,10 @@ body {
 
 .text-gray {
   color: var(--gray);
+}
+
+.text-lightgray {
+  color: var(--lightgray);
 }
 
 .form {
@@ -136,24 +137,33 @@ label {
 }
 
 .open-button {
-  background-color: #D2D4DF; /* White background color */
-  border: 1px solid #ddd; /* Light gray border */
-  border-radius: 15px; /* Rounded corners */
-  padding: 4px 12px; /* Padding for spacing */
-  color: #2E3E74; /* Dark gray text color */
-  font-weight: bold; /* Bold font weight */
+  background-color: #D2D4DF;
+  border: 1px solid #ddd; 
+  border-radius: 15px;
+  padding: 4px 12px; 
+  color: #2E3E74;
+  font-weight: bold; 
 }
 
 .close-button {
-  color: #999; /* Dark gray text color */
-  font-weight: semibold; /* Bold font weight */
+  color: #999; 
+  font-weight: semibold;
 }
 
-.yellow-bar {
-  background-color: #D2D4DF; /* White background color */
-  border: 1px solid #ddd; /* Light gray border */
-  border-radius: 15px; /* Rounded corners */
-  padding: 4px 12px; /* Padding for spacing */
-  color: #2E3E74; /* Dark gray text color */
-  font-weight: bold; /* Bold font weight */
+.schedule-bar {
+  background-color: #e3edf5; 
+  border: 1px solid #ddd; 
+  border-radius: 8px;
+  color: #1e253a;
+  font-weight: medium;
+  font-size: 13px;
+  display: flex; /* Mengubah display menjadi flex */
+  justify-content: flex-start; 
+  align-items: flex-start;
+}
+
+.bg-yellow {
+  background: var(--yellow);
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
