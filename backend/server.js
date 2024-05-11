@@ -1,10 +1,10 @@
-const config =  require('./config/config.js');
+const config = require('./config/config.js');
 
 const app = require('./app');
 
 console.log(`Environment = ${config.NODE_ENV}`);
 
-const PORT = config.PORT || 3000;
+const PORT = config.PORT || 4000;
 
 // Start the server
 app.listen(PORT, () => {
