@@ -38,7 +38,7 @@ const Profile = () => {
                             <h1 className="text-3xl font-bold text-purple mb-6">User Profile</h1>
                             <a href="">
                                 <img
-                                    src="/assets/profile.png"
+                                    src="/assets/user.png"
                                     className="img-profile p-1 mb-6"
                                 />
                             </a>

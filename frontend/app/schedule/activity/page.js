@@ -10,8 +10,9 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [taskName, setTaskName] = useState('');
   const [description, setDescription] = useState('');
-  const [difficulty, setDifficulty] = useState(1);
-  const [priority, setPriority] = useState(1);
+  const [organization, setOrganization] = useState('Select');
+  const [difficulty, setDifficulty] = useState('Select');
+  const [priority, setPriority] = useState('Select');
   const [deadline, setDeadline] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +53,17 @@ export default function Home() {
                   placeholder="Enter description"
                   className="w-9/12 p-2 border rounded text-gray text-sm"
                 />
+              </div>
+              <div className="form-group">
+                <label>Organization</label>
+                <select value={organization} 
+                onChange={(e) => setOrganization(e.target.value)}
+                className="bg-lightblue px-5 py-1 rounded-md">
+                  <option value="">Select</option>
+                  {Array.from({ length: 10 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
               </div>
               <div className="form-group">
                 <label>Difficulty</label>
@@ -111,15 +123,23 @@ export default function Home() {
       </div>
       <div class="line"></div>
       <div className="flex justify-center gap-14 mt-2" > 
-        <button class="close-button">All</button>
-        <button class="close-button">Task</button>
-        <button class="open-button" >Activity</button>
+        <button className="close-button hover:font-bold hover:text-black">
+            <a href="/schedule">
+                All
+            </a>
+        </button>
+        <button className="close-button hover:font-bold hover:text-black">
+            <a href="/schedule/task">
+                Task
+            </a>
+        </button>
+        <button className="open-button">Activity</button>
       </div>
       <div className="flex flex-row justify-center gap-10 mt-5">
         <div>
           <div class="bg-yellow px-36 py-1 font-bold mb-3">To Do</div>
           <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
-          <button className="text-lg font-medium text-lightgray p-3 mt-3">+ Add Activity</button>
+          <button className="text-lg font-medium text-lightgray p-3 mt-3 hover:font-bold hover:text-zinc-600" onClick={() => setShowModal(true)}>+ Add Activity</button>
         </div>
         <div>
           <div class="bg-yellow px-36 py-1 font-bold mb-3">In Progress</div>

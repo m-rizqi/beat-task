@@ -61,6 +61,11 @@ body {
 	height:100px;
 }
 
+.img-navprofile {
+	width: 40px;
+	height: 40px;
+}
+
 .bg-purple {
   background: var(--purple);
 }
