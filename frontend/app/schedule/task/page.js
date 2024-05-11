@@ -110,16 +110,24 @@ export default function Home() {
         </div>
       </div>
       <div class="line"></div>
-      <div className="flex justify-center gap-14 mt-2" > 
-        <button class="close-button">All</button>
-        <button class="close-button">Task</button>
-        <button class="open-button" >Activity</button>
+      <div className="flex justify-center gap-20 mt-2" > 
+        <button className="close-button hover:font-bold hover:text-black">
+            <a href="/schedule">
+                All
+            </a>
+        </button>
+        <button className="open-button w-20">Task</button>
+        <button className="close-button hover:font-bold hover:text-black">
+            <a href="/schedule/activity">
+                Activity
+            </a>
+        </button>
       </div>
       <div className="flex flex-row justify-center gap-10 mt-5">
         <div>
           <div class="bg-yellow px-36 py-1 font-bold mb-3">To Do</div>
           <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
-          <button className="text-lg font-medium text-lightgray p-3 mt-3">+ Add Activity</button>
+          <button className="text-lg font-medium text-lightgray p-3 mt-3 hover:font-bold hover:text-zinc-600" onClick={() => setShowModal(true)}>+ Add Task</button>
         </div>
         <div>
           <div class="bg-yellow px-36 py-1 font-bold mb-3">In Progress</div>
