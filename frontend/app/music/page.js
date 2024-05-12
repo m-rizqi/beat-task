@@ -3,7 +3,7 @@
 import Navbar from "../components/navbar";
 import MusicCard from "../components/musicCard";
 
-export default function Home() {
+export default function Music() {
   return (
     <div className="bg-white">
       <Navbar></Navbar>
