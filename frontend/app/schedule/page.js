@@ -3,7 +3,6 @@
 import Navbar from "../components/navbar";
 import Modal from "../components/modal";
 import ScheduleCard from "../components/scheduleCard";
-import HomeCard from "../components/homeCard";
 import { useState } from "react";
 
 export default function Home() {
@@ -100,10 +99,10 @@ export default function Home() {
           </div> */}
         </div>
       </Modal>
-      <div className="flex flex-row mt-2">
+      <div className="flex flex-row mt-3">
         <img
-          src="/assets/schedule.png"
-          className="img-logo2 p-3 ml-3"
+          src="/assets/schedule1.png"
+          className="img-schedule p-3 ml-8"
         />
         <div className="mt-3 text-purple text-lg font-semibold">
           Schedule

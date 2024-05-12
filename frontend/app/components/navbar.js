@@ -29,7 +29,7 @@ export default function Navbar() {
                             <a href="/schedule" className="text-white hover:bg-white hover:text-black rounded-lg p-2">
                                 Schedule
                             </a>
-                            <a href="" className="text-white hover:bg-white hover:text-black rounded-lg p-2">
+                            <a href="/music" className="text-white hover:bg-white hover:text-black rounded-lg p-2">
                                 Music
                             </a>
                             <div className="relative">
