@@ -1,8 +1,8 @@
-const Task = require("../models/taskModel");
-const mongoose = require("mongoose");
+const Task = require('../models/taskModel');
+const mongoose = require('mongoose');
 
 exports.addTask = async (req, res) => {
-  const userID = req.user._id;
+  const userID = req.userId;
   try {
     const isAvailable = await Task.findOne({ userID: userID });
     if (!isAvailable) {
@@ -25,7 +25,7 @@ exports.addTask = async (req, res) => {
 };
 
 exports.updateTask = async (req, res) => {
-  const userID = req.user._id;
+  const userID = req.userId;
   const { id } = req.params;
   const {
     taskName,
@@ -36,29 +36,29 @@ exports.updateTask = async (req, res) => {
     taskDifficulty,
   } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send("Task not exist");
+    return res.status(404).send('Task not exist');
 
   try {
     const taskCheck = await Task.find(
-      { userID: userID, "tasks._id": id },
-      { "tasks.$": 1 }
+      { userID: userID, 'tasks._id': id },
+      { 'tasks.$': 1 }
     );
     if (taskCheck.length === 0) {
-      return res.status(404).send("Task not exist");
+      return res.status(404).send('Task not exist');
     }
 
     const task = taskCheck[0].tasks[0];
 
     await Task.findOneAndUpdate(
-      { userID: userID, "tasks._id": id },
+      { userID: userID, 'tasks._id': id },
       {
         $set: {
-          "tasks.$.taskName": taskName,
-          "tasks.$.taskDescription": taskDescription,
-          "tasks.$.taskDeadline": taskDeadline,
-          "tasks.$.taskStatus": taskStatus,
-          "tasks.$.taskPriority": taskPriority,
-          "tasks.$.taskDifficulty": taskDifficulty,
+          'tasks.$.taskName': taskName,
+          'tasks.$.taskDescription': taskDescription,
+          'tasks.$.taskDeadline': taskDeadline,
+          'tasks.$.taskStatus': taskStatus,
+          'tasks.$.taskPriority': taskPriority,
+          'tasks.$.taskDifficulty': taskDifficulty,
         },
       }
     );
@@ -71,18 +71,18 @@ exports.updateTask = async (req, res) => {
 };
 
 exports.deleteTask = async (req, res) => {
-  const userID = req.user._id;
+  const userID = req.userId;
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send("Task not exist");
+    return res.status(404).send('Task not exist');
 
   try {
     const taskCheck = await Task.find(
-      { userID: userID, "tasks._id": id },
-      { "tasks.$": 1 }
+      { userID: userID, 'tasks._id': id },
+      { 'tasks.$': 1 }
     );
     if (taskCheck.length === 0) {
-      return res.status(404).send("Task not exist");
+      return res.status(404).send('Task not exist');
     }
 
     await Task.findOneAndUpdate(
@@ -98,11 +98,11 @@ exports.deleteTask = async (req, res) => {
 };
 
 exports.getAllTasks = async (req, res) => {
-  const userID = req.user._id;
+  const userID = req.userId;
   try {
     const taskList = await Task.findOne({ userID: userID });
     if (!taskList) {
-      return res.status(404).json({ msg: "Task list not found" });
+      return res.status(404).json({ msg: 'Task list not found' });
     }
     res.status(201).json(taskList);
   } catch (err) {
@@ -111,18 +111,18 @@ exports.getAllTasks = async (req, res) => {
 };
 
 exports.getTask = async (req, res) => {
-  const userID = req.user._id;
+  const userID = req.userId;
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send("Task not exist");
+    return res.status(404).send('Task not exist');
 
   try {
     const taskCheck = await Task.find(
-      { userID: userID, "tasks._id": id },
-      { "tasks.$": 1 }
+      { userID: userID, 'tasks._id': id },
+      { 'tasks.$': 1 }
     );
     if (taskCheck.length === 0) {
-      return res.status(404).send("Task not exist");
+      return res.status(404).send('Task not exist');
     }
 
     const task = taskCheck[0].tasks[0];

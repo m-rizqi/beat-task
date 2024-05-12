@@ -3,7 +3,6 @@
 import Navbar from "../components/navbar";
 import Modal from "../components/modal";
 import ScheduleCard from "../components/scheduleCard";
-import HomeCard from "../components/homeCard";
 import { useState } from "react";
 
 export default function Home() {
@@ -27,11 +26,8 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white content-container">
       <Navbar></Navbar>
-      {/* <button className="bg-purple text-white p-2" onClick={() => setShowModal(true)}>
-        Modal
-      </button> */}
       <Modal isVisible={showModal} onClose={() => setShowModal(false)}>
         <div className="flex flex-col">
             <form onSubmit={handleSubmit} className="form gap-4 m-4">
@@ -92,18 +88,12 @@ export default function Home() {
               </div>
               
             </form>
-          {/* <div>
-            nama tugas
-          </div>
-          <div className="flex flex-row">
-            s
-          </div> */}
         </div>
       </Modal>
-      <div className="flex flex-row mt-2">
+      <div className="flex flex-row mt-3">
         <img
-          src="/assets/schedule.png"
-          className="img-logo2 p-3 ml-3"
+          src="/assets/schedule1.png"
+          className="img-schedule p-3 ml-8"
         />
         <div className="mt-3 text-purple text-lg font-semibold">
           Schedule
@@ -123,17 +113,26 @@ export default function Home() {
           </a>
         </button>
       </div>
-      <div className="flex flex-row justify-center gap-10 mt-5">
+      <div className="flex flex-row justify-center gap-10 mt-7">
         <div>
-          <div className="bg-yellow px-36 py-1 font-bold mb-3">To Do</div>
+          <div className="flex flex-row px-6 py-2.5 bg-yellow mb-3">
+            <p className="font-bold">To Do</p>
+            <p className="text-schedbar text-sm">1 of 1</p>
+          </div>
+          <ScheduleCard>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
+        </div>
+        <div>
+          <div className="flex flex-row px-6 py-2.5 bg-yellow mb-3">
+            <p className="font-bold">In Progress</p>
+            <p className="text-schedbar text-sm">1 of 1</p>
+          </div>
           <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
         </div>
         <div>
-          <div className="bg-yellow px-36 py-1 font-bold mb-3">In Progress</div>
-          <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
-        </div>
-        <div>
-          <div className="bg-yellow px-36 py-1 font-bold mb-3">Done</div>
+          <div className="flex flex-row px-6 py-2.5 bg-yellow mb-3">
+            <p className="font-bold">Done</p>
+            <p className="text-schedbar text-sm">1 of 1</p>
+          </div>
           <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
         </div>
       </div>

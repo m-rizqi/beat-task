@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       <Navbar></Navbar>
-      <div className="flex bg-white">
+      <div className="flex bg-white content-container">
             <div className='flex flex-col todo-bar p-4 mx-20 mt-8'>
                  <div className="flex flex-row mt-4 ml-10">
 
