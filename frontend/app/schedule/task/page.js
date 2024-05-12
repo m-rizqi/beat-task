@@ -15,7 +15,9 @@ export default function Home() {
   const [difficulty, setDifficulty] = useState('Select');
   const [priority, setPriority] = useState('Select');
   const [deadline, setDeadline] = useState('');
-  const [taskList, setTaskList] = useState([]);
+  const [todo, setTodo] = useState([]);
+  const [progress, setProgress] = useState([]);
+  const [done, setDone] = useState([]);
 
   useEffect(() => {
     loadTask();
@@ -43,7 +45,9 @@ export default function Home() {
       });
       if (res.status === 401) throw new Error(res.body);
       const data = await res.json();
-      setTaskList(data.tasks);
+      setTodo(data.tasks.filter((task) => task.taskStatus === 'todo'));
+      setProgress(data.tasks.filter((task) => task.taskStatus === 'progress'));
+      setDone(data.tasks.filter((task) => task.taskStatus === 'done'));
     } catch (err) {
       console.error(err);
       toast.error('Error while loading task');
@@ -192,13 +196,14 @@ export default function Home() {
           <div className="bg-yellow px-36 py-1 font-bold mb-3 text-black">
             To Do
           </div>
-          {/* <ScheduleCard>
-            {' '}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </ScheduleCard> */}
-          {taskList.map((task) => (
-            <ScheduleCard key={task._id}>{task.taskName}</ScheduleCard>
-          ))}
+          {todo.length > 0 ? (
+            todo.map((task) => (
+              <ScheduleCard key={task._id}>{task.taskName}</ScheduleCard>
+            ))
+          ) : (
+            <p className="text-black">No to do list</p>
+          )}
+
           <button
             className="text-lg font-medium text-lightgray p-3 mt-3 hover:font-bold hover:text-zinc-600"
             onClick={() => setShowModal(true)}
@@ -210,19 +215,25 @@ export default function Home() {
           <div className="bg-yellow px-36 py-1 font-bold mb-3 text-black">
             In Progress
           </div>
-          <ScheduleCard>
-            {' '}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </ScheduleCard>
+          {progress.length > 0 ? (
+            progress.map((task) => (
+              <ScheduleCard key={task._id}>{task.taskName}</ScheduleCard>
+            ))
+          ) : (
+            <p className="text-black">No task in progress</p>
+          )}
         </div>
         <div>
           <div className="bg-yellow px-36 py-1 font-bold mb-3 text-black">
             Done
           </div>
-          <ScheduleCard>
-            {' '}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </ScheduleCard>
+          {done.length > 0 ? (
+            done.map((task) => (
+              <ScheduleCard key={task._id}>{task.taskName}</ScheduleCard>
+            ))
+          ) : (
+            <p className="text-black">No task has been done</p>
+          )}
         </div>
       </div>
       <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
