@@ -5,15 +5,15 @@ import MusicCard from "../components/musicCard";
 
 export default function Music() {
   return (
-    <div className="bg-white">
+    <div className="bg-white content-container">
       <Navbar></Navbar>
       <main className="h-screen">
-        <div className="flex flex-row mt-3">
+        <div className="flex flex-row">
           <img
             src="/assets/music1.png"
-            className="img-schedule p-2.5 ml-8"
+            className="img-schedule p-2.5 ml-8 mt-2"
           />
-          <div className="mt-3 ml-2 text-purple text-lg font-semibold">
+          <div className="mt-5 ml-2 text-purple text-lg font-semibold">
             Music
           </div>
         </div>

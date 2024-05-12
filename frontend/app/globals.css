@@ -147,6 +147,10 @@ label {
   justify-content: center;
 }
 
+.justify-start {
+  justify-content: start;
+}
+
 .gap-2 > button {
   margin: 0 5px; 
 }
@@ -249,4 +253,22 @@ label {
   bottom: 0;
   width: 100%; 
   z-index: 10;
+}
+
+.text-schedbar {
+  position: absolute;
+  margin-left: 290px; 
+  margin-top: 3px; 
+  color: #55565A;
+}
+
+.set-navbar {
+  position: fixed; 
+  top: 0;
+  width: 100%; 
+  z-index: 10;
+}
+
+.content-container {
+  margin-top: 65px;
 }

@@ -28,11 +28,8 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white content-container">
       <Navbar></Navbar>
-      {/* <button className="bg-purple text-white p-2" onClick={() => setShowModal(true)}>
-        Modal
-      </button> */}
       <Modal isVisible={showModal} onClose={() => setShowModal(false)}>
         <div className="flex flex-col">
             <form onSubmit={handleSubmit} className="form gap-4 m-4">
@@ -104,12 +101,6 @@ export default function Home() {
               </div>
               
             </form>
-          {/* <div>
-            nama tugas
-          </div>
-          <div className="flex flex-row">
-            s
-          </div> */}
         </div>
       </Modal>
       <div className="flex flex-row mt-3">
@@ -121,7 +112,7 @@ export default function Home() {
           Schedule
         </div>
       </div>
-      <div class="line"></div>
+      <div className="line"></div>
       <div className="flex justify-center gap-14 mt-2" > 
         <button className="close-button hover:font-bold hover:text-black">
             <a href="/schedule">
@@ -135,18 +126,27 @@ export default function Home() {
         </button>
         <button className="open-button">Activity</button>
       </div>
-      <div className="flex flex-row justify-center gap-10 mt-5">
+      <div className="flex flex-row justify-center gap-10 mt-7">
         <div>
-          <div class="bg-yellow px-36 py-1 font-bold mb-3">To Do</div>
-          <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
+          <div className="flex flex-row px-6 py-2.5 bg-yellow mb-3">
+            <p className="font-bold">To Do</p>
+            <p className="text-schedbar text-sm">1 of 1</p>
+          </div>
+          <ScheduleCard>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
           <button className="text-lg font-medium text-lightgray p-3 mt-3 hover:font-bold hover:text-zinc-600" onClick={() => setShowModal(true)}>+ Add Activity</button>
         </div>
         <div>
-          <div class="bg-yellow px-36 py-1 font-bold mb-3">In Progress</div>
+          <div className="flex flex-row px-6 py-2.5 bg-yellow mb-3">
+            <p className="font-bold">In Progress</p>
+            <p className="text-schedbar text-sm">1 of 1</p>
+          </div>
           <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
         </div>
         <div>
-          <div class="bg-yellow px-36 py-1 font-bold mb-3">Done</div>
+          <div className="flex flex-row px-6 py-2.5 bg-yellow mb-3">
+            <p className="font-bold">Done</p>
+            <p className="text-schedbar text-sm">1 of 1</p>
+          </div>
           <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
         </div>
       </div>
