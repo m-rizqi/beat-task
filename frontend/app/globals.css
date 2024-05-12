@@ -56,6 +56,11 @@ body {
 	height:50px;
 }
 
+.img-schedule {
+	width: 55px;
+	height:50px;
+}
+
 .img-profile {
 	width: 100px;
 	height:100px;
@@ -127,10 +132,10 @@ label {
 }
 
 .line {
-  width: 97%; /* Adjust width as needed */
-  height: 1px; /* Adjust height for line thickness */
-  background-color: #999; /* Set line color */
-  margin-top: 3px; /* Adjust margin for line position */
+  width: 97%; 
+  height: 1px; 
+  background-color: #999; 
+  margin-top: 3px; 
   margin-left: 20px;
 }
 
@@ -143,7 +148,7 @@ label {
 }
 
 .gap-2 > button {
-  margin: 0 5px; /* Menambahkan jarak 5px di sekitar setiap tombol */
+  margin: 0 5px; 
 }
 
 .open-button {
@@ -167,7 +172,7 @@ label {
   color: #1e253a;
   font-weight: medium;
   font-size: 13px;
-  display: flex; /* Mengubah display menjadi flex */
+  display: flex; 
   justify-content: flex-start; 
   align-items: flex-start;
 }
@@ -207,4 +212,41 @@ label {
   justify-content: flex-start; 
   align-items: flex-start;
   width: 35%;
+}
+
+.music-bar {
+  background-color: #EEF2F5; 
+  border-radius: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  width: 65%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.music-time {
+  position: absolute;  
+  right: 0;
+  margin-right: 50px;
+  margin-top: 18px;
+  color: #55565A;
+}
+
+.music-button {
+  position: absolute;  
+  right: 0;
+  margin-right: 50px;
+  margin-top: 10px;
+}
+
+.img-musicbtn {
+	width: 45px;
+	height: 45px;
+}
+
+.test {
+  position: fixed; 
+  bottom: 0;
+  width: 100%; 
+  z-index: 10;
 }

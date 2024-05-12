@@ -3,15 +3,14 @@
 import Navbar from "../../components/navbar";
 import Modal from "../../components/modal";
 import ScheduleCard from "../../components/scheduleCard";
-//import HomeCard from "../components/homeCard";
 import { useState } from "react";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [taskName, setTaskName] = useState('');
   const [description, setDescription] = useState('');
-  const [difficulty, setDifficulty] = useState(1);
-  const [priority, setPriority] = useState(1);
+  const [difficulty, setDifficulty] = useState('Select');
+  const [priority, setPriority] = useState('Select');
   const [deadline, setDeadline] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -92,24 +91,19 @@ export default function Home() {
               </div>
               
             </form>
-          {/* <div>
-            nama tugas
-          </div>
-          <div className="flex flex-row">
-            s
-          </div> */}
+          
         </div>
       </Modal>
-      <div className="flex flex-row mt-2">
+      <div className="flex flex-row mt-3">
         <img
-          src="/assets/schedule.png"
-          className="img-logo2 p-3 ml-3"
+          src="/assets/schedule1.png"
+          className="img-schedule p-3 ml-8"
         />
         <div className="mt-3 text-purple text-lg font-semibold">
           Schedule
         </div>
       </div>
-      <div class="line"></div>
+      <div className="line"></div>
       <div className="flex justify-center gap-20 mt-2" > 
         <button className="close-button hover:font-bold hover:text-black">
             <a href="/schedule">
@@ -125,16 +119,16 @@ export default function Home() {
       </div>
       <div className="flex flex-row justify-center gap-10 mt-5">
         <div>
-          <div class="bg-yellow px-36 py-1 font-bold mb-3">To Do</div>
+          <div className="bg-yellow px-36 py-1 font-bold mb-3">To Do</div>
           <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
           <button className="text-lg font-medium text-lightgray p-3 mt-3 hover:font-bold hover:text-zinc-600" onClick={() => setShowModal(true)}>+ Add Task</button>
         </div>
         <div>
-          <div class="bg-yellow px-36 py-1 font-bold mb-3">In Progress</div>
+          <div className="bg-yellow px-36 py-1 font-bold mb-3">In Progress</div>
           <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
         </div>
         <div>
-          <div class="bg-yellow px-36 py-1 font-bold mb-3">Done</div>
+          <div className="bg-yellow px-36 py-1 font-bold mb-3">Done</div>
           <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
         </div>
       </div>
