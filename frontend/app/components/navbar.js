@@ -8,7 +8,7 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="bg-purple">
+        <nav className="bg-purple fixed top-0 left-0 w-full z-50">
             <div className="px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
@@ -29,7 +29,7 @@ export default function Navbar() {
                             <a href="/schedule" className="text-white hover:bg-white hover:text-black rounded-lg p-2">
                                 Schedule
                             </a>
-                            <a href="" className="text-white hover:bg-white hover:text-black rounded-lg p-2">
+                            <a href="/music" className="text-white hover:bg-white hover:text-black rounded-lg p-2">
                                 Music
                             </a>
                             <div className="relative">

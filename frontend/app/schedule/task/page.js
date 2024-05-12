@@ -12,8 +12,8 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [taskName, setTaskName] = useState('');
   const [description, setDescription] = useState('');
-  const [difficulty, setDifficulty] = useState('');
-  const [priority, setPriority] = useState('');
+  const [difficulty, setDifficulty] = useState('Select');
+  const [priority, setPriority] = useState('Select');
   const [deadline, setDeadline] = useState('');
   const [taskList, setTaskList] = useState([]);
 
@@ -84,12 +84,9 @@ export default function Home() {
   const onClose = () => setShowModal(false);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white content-container">
       <Navbar></Navbar>
-      {/* <button className="bg-purple text-white p-2" onClick={() => setShowModal(true)}>
-        Modal
-      </button> */}
-      <Modal isVisible={showModal}>
+      <Modal isVisible={showModal} onClose={() => setShowModal(false)}>
         <div className="flex flex-col">
           <form onSubmit={handleSubmit} className="form gap-4 m-4">
             <div className="form-group">
@@ -190,7 +187,7 @@ export default function Home() {
           <a href="/schedule/activity">Activity</a>
         </button>
       </div>
-      <div className="flex flex-row justify-center gap-10 mt-5">
+      <div className="flex flex-row justify-center gap-10 mt-7">
         <div>
           <div className="bg-yellow px-36 py-1 font-bold mb-3 text-black">
             To Do
