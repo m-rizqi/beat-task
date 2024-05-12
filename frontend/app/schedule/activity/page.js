@@ -8,23 +8,51 @@ import { useState } from "react";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
-  const [taskName, setTaskName] = useState('');
+  const [activityName, setActivityName] = useState('');
   const [description, setDescription] = useState('');
   const [organization, setOrganization] = useState('Select');
   const [difficulty, setDifficulty] = useState('Select');
   const [priority, setPriority] = useState('Select');
   const [deadline, setDeadline] = useState('');
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Lakukan sesuatu dengan data yang diinput
     console.log('Data Task:', {
-      taskName,
+      activityName,
       description,
       difficulty,
       priority,
       deadline
     });
+
+    const newActivity = {
+      _id: '663796baf93bcab75d8916ea',
+      activity: {
+        "activityName": "Morning Run",
+        "activityStart": "2024-05-12T06:00:00Z",
+        "activityEnd": "2024-05-12T07:00:00Z",
+        "repeatVar": "weekly",
+        "repeatInterval": 1
+      }
+    }
     // Lakukan pengiriman data ke server atau penanganan lainnya di sini
+    try {
+      const res = await fetch(`http://localhost:4000//api/activities`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newActivity),
+      });
+      if (res.status === 401) throw new Error('Invalid username or password');
+      const data = await res.json();
+      console.log(data);
+      document.cookie = `token=${data.token}; path=/`;
+      window.location.href = '/';
+    } catch (err) {
+      console.error(err);
+      toast.error('Invalid username or password');
+    }
   };
 
   return (
@@ -39,10 +67,10 @@ export default function Home() {
               <div className="form-group">
                 <input
                   type="text"
-                  placeholder="Enter Task Name"
-                  value={taskName}
+                  placeholder="Enter Activity Name"
+                  value={activityName}
                   className="text-xl font-semibold"
-                  onChange={(e) => setTaskName(e.target.value)}
+                  onChange={(e) => setActivityName(e.target.value)}
                 />
               </div>
               <div className="form-group">
