@@ -6,9 +6,7 @@ exports.addTask = async (req, res) => {
   try {
     const isAvailable = await Task.findOne({ userID: userID });
     if (!isAvailable) {
-      const taskDocument = new Task({
-        userID,
-      });
+      const taskDocument = new Task({ userID, ...req.body });
       await taskDocument.save();
       res.status(201).send(task);
     }
