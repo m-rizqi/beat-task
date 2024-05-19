@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       <Navbar></Navbar>
-      <div className="flex bg-white content-container">
+      <div className="flex flex-col bg-white content-container">
             <div className='flex flex-col todo-bar p-4 mx-20 mt-8'>
                  <div className="flex flex-row mt-4 ml-10">
 
@@ -28,26 +28,26 @@ export default function Home() {
 
                  </div>
             </div>
+            <div className="text-xl font-bold ml-64 mt-8">
+              To Do
+            </div>
+            <div className="todo-bar mt-4 p-4">
+              TEST
+            </div>
+            <div className="todo-bar mt-4 p-4">
+              TEST
+            </div>
+            <div className="text-xl font-bold ml-64 mt-8">
+              Deadline
+            </div>
+            <div className="todo-bar mt-4 p-4">
+              <ol> 
+                <li>1. Tugas 1</li> 
+                <li>2. Tugas 2</li> 
+                <li>3. Tugas 3</li>
+              </ol>
+            </div>
       </div>
-        <div className="text-xl font-bold ml-64 mt-8">
-          To Do
-        </div>
-        <div className="todo-bar mt-4 p-4">
-          TEST
-        </div>
-        <div className="todo-bar mt-4 p-4">
-          TEST
-        </div>
-        <div className="text-xl font-bold ml-64 mt-8">
-          Deadline
-        </div>
-        <div className="todo-bar mt-4 p-4">
-          <ol> 
-            <li>1. Tugas 1</li> 
-            <li>2. Tugas 2</li> 
-            <li>3. Tugas 3</li>
-          </ol>
-        </div>
 
     </div>
     
