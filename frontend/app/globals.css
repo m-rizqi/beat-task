@@ -257,7 +257,7 @@ label {
 
 .text-schedbar {
   position: absolute;
-  margin-left: 290px; 
+  margin-left: 300px; 
   margin-top: 3px; 
   color: #55565A;
 }
@@ -272,3 +272,18 @@ label {
 .content-container {
   margin-top: 65px;
 }
+
+.text-home {
+  margin-left: 240px; 
+}
+
+.form-group select,
+.form-group input[type="date"] {
+  width: 40%; 
+}
+
+.img-x {
+	width: 22px;
+	height: 22px;
+}
+

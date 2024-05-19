@@ -32,13 +32,13 @@ export default function Home() {
       <Navbar></Navbar>
       <Modal isVisible={showModal} onClose={() => setShowModal(false)}>
         <div className="flex flex-col">
-            <form onSubmit={handleSubmit} className="form gap-4 m-4">
+            <form onSubmit={handleSubmit} className="form gap-6 m-4">
               <div className="form-group">
                 <input
                   type="text"
                   placeholder="Enter Task Name"
                   value={taskName}
-                  className="text-xl font-semibold"
+                  className="text-2xl font-semibold"
                   onChange={(e) => setTaskName(e.target.value)}
                 />
               </div>
@@ -55,7 +55,7 @@ export default function Home() {
                 <label>Organization</label>
                 <select value={organization} 
                 onChange={(e) => setOrganization(e.target.value)}
-                className="bg-lightblue px-5 py-1 rounded-md">
+                className="bg-lightblue px-5 py-2 rounded-md">
                   <option value="">Select</option>
                   {Array.from({ length: 10 }, (_, i) => (
                     <option key={i + 1} value={i + 1}>{i + 1}</option>
@@ -66,7 +66,7 @@ export default function Home() {
                 <label>Difficulty</label>
                 <select value={difficulty} 
                 onChange={(e) => setDifficulty(e.target.value)}
-                className="bg-lightblue px-5 py-1 rounded-md">
+                className="bg-lightblue px-5 py-2 rounded-md">
                   <option value="">Select</option>
                   {Array.from({ length: 10 }, (_, i) => (
                     <option key={i + 1} value={i + 1}>{i + 1}</option>
@@ -77,7 +77,7 @@ export default function Home() {
                 <label>Priority</label>
                 <select value={priority} 
                 onChange={(e) => setPriority(e.target.value)}
-                className="bg-lightblue px-5 py-1 rounded-md">
+                className="bg-lightblue px-5 py-2 rounded-md">
                   <option value="">Select</option>
                   {Array.from({ length: 10 }, (_, i) => (
                     <option key={i + 1} value={i + 1}>{i + 1}</option>
@@ -90,14 +90,14 @@ export default function Home() {
                   type="date"
                   value={deadline}
                   onChange={(e) => setDeadline(e.target.value)}
-                  className="bg-lightblue px-5 py-1 rounded-md"
+                  className="bg-lightblue px-5 py-2 rounded-md"
                 />
               </div>
               <div className="flex flex-row text-sm justify-end">
                 <button type="submit"
-              className="bg-darkeryellow text-white mr-1.5 px-3 py-1 rounded-lg">Cancel</button>
+              className="bg-darkeryellow text-white font-semibold mr-2.5 px-4 py-2 rounded-lg">Cancel</button>
               <button onClick={() => onClose()}
-              className="bg-darkgreen text-white px-4 py-1 rounded-lg">Add</button>
+              className="bg-darkgreen text-white font-semibold px-6 py-2 rounded-lg">Add</button>
               </div>
               
             </form>
