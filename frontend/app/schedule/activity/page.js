@@ -109,6 +109,20 @@ export default function Home() {
     return new Date(date).toLocaleDateString(undefined, options);
   };
 
+  const onClose = () => {
+    setShowModal(false);
+    resetForm();
+  }
+
+  const resetForm = () => {
+    setTaskName('');
+    setDescription('');
+    setDifficulty('');
+    setPriority('');
+    setDeadline('');
+    setStatus('');
+  };
+
   return (
     <div className="bg-white content-container text-black">
       <Navbar></Navbar>
