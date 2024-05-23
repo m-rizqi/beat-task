@@ -12,8 +12,8 @@ async function signUp(req, res) {
 async function signIn(req, res) {
   try {
     const { username, password } = req.body;
-    const token = await userService.signIn(username, password);
-    res.json({ token });
+    const singin = await userService.signIn(username, password);
+    res.json({ token: singin.token, userId: singin.userId });
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
@@ -21,5 +21,5 @@ async function signIn(req, res) {
 
 module.exports = {
   signUp,
-  signIn
+  signIn,
 };
