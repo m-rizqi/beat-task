@@ -10,10 +10,11 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [taskName, setTaskName] = useState('');
   const [description, setDescription] = useState('');
-  const [organization, setOrganization] = useState('Select');
-  const [difficulty, setDifficulty] = useState('Select');
-  const [priority, setPriority] = useState('Select');
+  const [organization, setOrganization] = useState('');
+  const [difficulty, setDifficulty] = useState('');
+  const [priority, setPriority] = useState('');
   const [deadline, setDeadline] = useState('');
+  const [taskStatus, setStatus] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
     // Lakukan sesuatu dengan data yang diinput
@@ -25,6 +26,20 @@ export default function Home() {
       deadline
     });
     // Lakukan pengiriman data ke server atau penanganan lainnya di sini
+  };
+
+  const onClose = () => {
+    setShowModal(false);
+    resetForm();
+  }
+
+  const resetForm = () => {
+    setTaskName('');
+    setDescription('');
+    setDifficulty('');
+    setPriority('');
+    setDeadline('');
+    setStatus('');
   };
 
   return (
@@ -93,12 +108,36 @@ export default function Home() {
                   className="bg-lightblue px-5 py-2 rounded-md"
                 />
               </div>
-              <div className="flex flex-row text-sm justify-end">
-                <button type="submit"
-              className="bg-darkeryellow text-white font-semibold mr-2.5 px-4 py-2 rounded-lg">Cancel</button>
-              <button onClick={() => onClose()}
-              className="bg-darkgreen text-white font-semibold px-6 py-2 rounded-lg">Add</button>
-              </div>
+              <div className="form-group">
+              <label>Status</label>
+              <select
+                value={taskStatus}
+                onChange={(e) => setStatus(e.target.value)}
+                className="bg-lightblue px-6 py-2 rounded-md text-gray-500"
+              >
+                <option value="" disabled>
+                  Select
+                </option>
+                <option value="Very Easy">To Do</option>
+                <option value="Easy">In Progress</option>
+                <option value="Medium">Done</option>
+              </select>
+            </div>
+            <div className="flex flex-row text-sm justify-end">
+              <button
+                onClick={() => onClose()}
+                className="bg-darkeryellow text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                onSubmit={handleSubmit}
+                className="bg-darkgreen text-white font-semibold px-6 py-2 rounded-lg"
+              >
+                Add
+              </button>
+            </div>
               
             </form>
         </div>
