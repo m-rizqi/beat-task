@@ -8,15 +8,21 @@ const Modal = ({ isVisible, onClose, children }) => {
     };
 
     return (
-        <div className='fixed inset-0 bg-black bg-opacity-25 
-        flex justify-center items-center'>
-            <div className='w-[600px] flex flex-col relative'>
-                <div className='bg-white p-2 rounded-2xl'>
+        <div 
+            id="wrapper"
+            onClick={handleClose}
+            className='fixed inset-0 bg-black bg-opacity-25 flex justify-center items-center z-50'
+        >
+            <div className='w-[750px] flex flex-col relative'>
+                <div className='bg-white p-6 rounded-2xl'>
                     <button
-                        className='text-gray-600 text-lg absolute top-3 right-5 -m-2'
+                        className='text-gray-600 text-lg absolute top-3 right-5'
                         onClick={() => onClose()}
                     >
-                        X
+                        <img
+                            src="/assets/x.png"
+                            className="img-x mt-3 mr-1 "
+                        ></img>
                     </button>
                     {children}
                 </div>

@@ -56,6 +56,15 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Lakukan sesuatu dengan data yang diinput
+    console.log('Data Task:', {
+      taskName,
+      description,
+      difficulty,
+      priority,
+      deadline
+    });
+    // Lakukan pengiriman data ke server atau penanganan lainnya di sini
     if (!taskName || !description || !difficulty || !priority || !deadline) {
       toast.error('Please fill all the fields!');
       console.log('error');
@@ -92,13 +101,13 @@ export default function Home() {
       <Navbar></Navbar>
       <Modal isVisible={showModal} onClose={() => setShowModal(false)}>
         <div className="flex flex-col">
-          <form onSubmit={handleSubmit} className="form gap-4 m-4">
+          <form onSubmit={handleSubmit} className="form gap-6 m-4">
             <div className="form-group">
               <input
                 type="text"
                 placeholder="Enter Task Name"
                 value={taskName}
-                className="text-xl font-semibold text-black"
+                className="text-2xl font-semibold text-black"
                 onChange={(e) => setTaskName(e.target.value)}
               />
             </div>
@@ -116,7 +125,7 @@ export default function Home() {
               <select
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
-                className="bg-lightblue px-5 py-1 rounded-md text-gray-500"
+                className="bg-lightblue px-6 py-2 rounded-md text-gray-500"
               >
                 <option value="" disabled>
                   Select
@@ -133,7 +142,7 @@ export default function Home() {
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value)}
-                className="bg-lightblue px-5 py-1 rounded-md text-gray-500"
+                className="bg-lightblue px-6 py-2 rounded-md text-gray-500"
               >
                 <option value="" disabled>
                   Select
@@ -150,31 +159,25 @@ export default function Home() {
                 type="date"
                 value={deadline}
                 onChange={(e) => setDeadline(e.target.value)}
-                className="bg-lightblue px-5 py-1 rounded-md text-gray-500"
+                className="bg-lightblue px-6 py-2 rounded-md text-gray-500"
               />
             </div>
             <div className="flex flex-row text-sm justify-end">
               <button
                 onClick={() => onClose()}
-                className="bg-darkeryellow text-white mr-1.5 px-3 py-1 rounded-lg"
+                className="bg-darkeryellow text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 onSubmit={handleSubmit}
-                className="bg-darkgreen text-white px-4 py-1 rounded-lg"
+                className="bg-darkgreen text-white font-semibold px-6 py-2 rounded-lg"
               >
                 Add
               </button>
             </div>
           </form>
-          {/* <div>
-            nama tugas
-          </div>
-          <div className="flex flex-row">
-            s
-          </div> */}
         </div>
       </Modal>
       <div className="flex flex-row mt-2">

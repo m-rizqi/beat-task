@@ -119,21 +119,21 @@ export default function Home() {
             <p className="font-bold">To Do</p>
             <p className="text-schedbar text-sm">1 of 1</p>
           </div>
-          <ScheduleCard>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
+          <ScheduleCard name="Task 1" desc="task description ...." />
         </div>
         <div>
           <div className="flex flex-row px-6 py-2.5 bg-yellow mb-3">
             <p className="font-bold">In Progress</p>
             <p className="text-schedbar text-sm">1 of 1</p>
           </div>
-          <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
+          <ScheduleCard name="Task 1" desc="task description ...." />
         </div>
         <div>
           <div className="flex flex-row px-6 py-2.5 bg-yellow mb-3">
             <p className="font-bold">Done</p>
             <p className="text-schedbar text-sm">1 of 1</p>
           </div>
-          <ScheduleCard> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</ScheduleCard>
+          <ScheduleCard name="Task 1" desc="task description ...." />
         </div>
       </div>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
