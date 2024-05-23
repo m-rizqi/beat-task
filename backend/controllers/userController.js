@@ -7,44 +7,47 @@ exports.createUser = async (req, res) => {
     res.status(201).send(user);
   } catch (err) {
     res.status(400).send(err);
-  }  
+  }
 };
 
 exports.getAllUsers = async (req, res) => {
-    try {
-        const users = await User.find();
-        res.status(200).json(users);
-    } catch (err) {
-        res.status(500).send(err);
-    }
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 };
 
 exports.getUser = async (req, res) => {
-    try {
-      const user = await User.findById(req.params.id);
-      if (!user) {
-        return res.status(404).json({ msg: 'User not found' });
-      }
-      res.json(user);
-    } catch (err) {
-      res.status(500).send(err);
+  const userID = req.userId;
+  try {
+    const user = await User.findById(userID);
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
     }
-  };
-  
-  exports.updateUser = async (req, res) => {
-    try {
-      const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-      res.json(user);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  };
-  
-  exports.deleteUser = async (req, res) => {
-    try {
-      await User.findByIdAndDelete(req.params.id);
-      res.json({ msg: 'User deleted' });
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  };
+    res.json({ name: user.name, username: user.username, email: user.email });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.json(user);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ msg: 'User deleted' });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
