@@ -11,13 +11,14 @@ import { useState, useEffect } from 'react';
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [taskName, setTaskName] = useState('');
-  const [description, setDescription] = useState('');
-  const [difficulty, setDifficulty] = useState('Select');
-  const [priority, setPriority] = useState('Select');
-  const [deadline, setDeadline] = useState('');
+  const [taskDescription, setDescription] = useState('');
+  const [taskDifficulty, setDifficulty] = useState('');
+  const [taskPriority, setPriority] = useState('');
+  const [taskDeadline, setDeadline] = useState('');
   const [todo, setTodo] = useState([]);
   const [progress, setProgress] = useState([]);
   const [done, setDone] = useState([]);
+  const [taskStatus, setStatus] = useState('');
 
   useEffect(() => {
     loadTask();
@@ -57,15 +58,14 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Lakukan sesuatu dengan data yang diinput
-    console.log('Data Task:', {
-      taskName,
-      description,
-      difficulty,
-      priority,
-      deadline
-    });
     // Lakukan pengiriman data ke server atau penanganan lainnya di sini
-    if (!taskName || !description || !difficulty || !priority || !deadline) {
+    if (
+      !taskName ||
+      !taskDescription ||
+      !taskDifficulty ||
+      !taskPriority ||
+      !taskDeadline
+    ) {
       toast.error('Please fill all the fields!');
       console.log('error');
       return;
@@ -80,24 +80,37 @@ export default function Home() {
         },
         body: JSON.stringify({
           taskName,
-          description,
-          difficulty,
-          priority,
-          deadline,
+          taskDescription,
+          taskDifficulty,
+          taskPriority,
+          taskDeadline,
         }),
       });
       if (res.status === 401) throw new Error(res.body);
-      const data = await res.json();
+      setShowModal(false);
+      loadTask();
     } catch (err) {
       console.error(err);
       toast.error('Error while creating task');
     }
   };
 
-  const onClose = () => setShowModal(false);
+  const onClose = () => {
+    setShowModal(false);
+    resetForm()
+  }
+
+  const resetForm = () => {
+    setTaskName('');
+    setDescription('');
+    setDifficulty('');
+    setPriority('');
+    setDeadline('');
+    setStatus('');
+  };
 
   return (
-    <div className="bg-white content-container">
+    <div className="bg-white content-container text-black">
       <Navbar></Navbar>
       <Modal isVisible={showModal} onClose={() => setShowModal(false)}>
         <div className="flex flex-col">
@@ -107,23 +120,23 @@ export default function Home() {
                 type="text"
                 placeholder="Enter Task Name"
                 value={taskName}
-                className="text-2xl font-semibold text-black"
+                className="text-2xl font-semibold"
                 onChange={(e) => setTaskName(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label className="text-black">Description</label>
+              <label>Description</label>
               <textarea
-                value={description}
+                value={taskDescription}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter description"
                 className="w-9/12 p-2 border rounded text-gray text-sm"
               />
             </div>
             <div className="form-group">
-              <label className="text-black">Difficulty</label>
+              <label>Difficulty</label>
               <select
-                value={difficulty}
+                value={taskDifficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
                 className="bg-lightblue px-6 py-2 rounded-md text-gray-500"
               >
@@ -138,9 +151,9 @@ export default function Home() {
               </select>
             </div>
             <div className="form-group">
-              <label className="text-black">Priority</label>
+              <label>Priority</label>
               <select
-                value={priority}
+                value={taskPriority}
                 onChange={(e) => setPriority(e.target.value)}
                 className="bg-lightblue px-6 py-2 rounded-md text-gray-500"
               >
@@ -154,13 +167,28 @@ export default function Home() {
               </select>
             </div>
             <div className="form-group">
-              <label className="text-black">Deadline</label>
+              <label>Deadline</label>
               <input
                 type="date"
-                value={deadline}
+                value={taskDeadline}
                 onChange={(e) => setDeadline(e.target.value)}
                 className="bg-lightblue px-6 py-2 rounded-md text-gray-500"
               />
+            </div>
+            <div className="form-group">
+              <label>Status</label>
+              <select
+                value={taskStatus}
+                onChange={(e) => setStatus(e.target.value)}
+                className="bg-lightblue px-6 py-2 rounded-md text-gray-500"
+              >
+                <option value="" disabled>
+                  Select
+                </option>
+                <option value="Very Easy">To Do</option>
+                <option value="Easy">In Progress</option>
+                <option value="Medium">Done</option>
+              </select>
             </div>
             <div className="flex flex-row text-sm justify-end">
               <button
@@ -196,15 +224,17 @@ export default function Home() {
       </div>
       <div className="flex flex-row justify-center gap-10 mt-7">
         <div>
-          <div className="bg-yellow px-36 py-1 font-bold mb-3 text-black">
-            To Do
-          </div>
+          <div className="bg-yellow px-36 py-1 font-bold mb-3">To Do</div>
           {todo.length > 0 ? (
             todo.map((task) => (
-              <ScheduleCard key={task._id}>{task.taskName}</ScheduleCard>
+              <ScheduleCard
+                key={task._id}
+                name={task.taskName}
+                desc={task.taskDescription}
+              />
             ))
           ) : (
-            <p className="text-black">No to do list</p>
+            <p>No to do list</p>
           )}
 
           <button
@@ -215,24 +245,28 @@ export default function Home() {
           </button>
         </div>
         <div>
-          <div className="bg-yellow px-36 py-1 font-bold mb-3 text-black">
-            In Progress
-          </div>
+          <div className="bg-yellow px-36 py-1 font-bold mb-3">In Progress</div>
           {progress.length > 0 ? (
             progress.map((task) => (
-              <ScheduleCard key={task._id}>{task.taskName}</ScheduleCard>
+              <ScheduleCard
+                key={task._id}
+                name={task.taskName}
+                desc={task.taskDescription}
+              />
             ))
           ) : (
-            <p className="text-black">No task in progress</p>
+            <p>No task in progress</p>
           )}
         </div>
         <div>
-          <div className="bg-yellow px-36 py-1 font-bold mb-3 text-black">
-            Done
-          </div>
+          <div className="bg-yellow px-36 py-1 font-bold mb-3">Done</div>
           {done.length > 0 ? (
             done.map((task) => (
-              <ScheduleCard key={task._id}>{task.taskName}</ScheduleCard>
+              <ScheduleCard
+                key={task._id}
+                name={task.taskName}
+                desc={task.taskDescription}
+              />
             ))
           ) : (
             <p className="text-black">No task has been done</p>
