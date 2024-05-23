@@ -5,7 +5,7 @@ import Navbar from '../components/navbar';
 //import {useGetUser} from "@/hooks/useCookies";
 
 const Profile = () => {
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState('');
 
   useEffect(() => {
     loadProfile();
