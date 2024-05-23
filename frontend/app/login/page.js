@@ -41,7 +41,7 @@ export default function UserLogin() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-reg-bg bg-cover">
       <Head>
-        <title>Rental Bahari | Login</title>
+        <title>Beat Task | Login</title>
       </Head>
 
       <main className="flex items-center justify-center flex-1 text-center">
@@ -73,7 +73,7 @@ export default function UserLogin() {
               className="flex flex-col lg:px-5 xl:px-16"
             >
               <div className="flex flex-col gap-8">
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 text-black">
                   <label className="font-semibold text-left">Username</label>
                   <div>
                     <input
@@ -88,7 +88,7 @@ export default function UserLogin() {
                     />
                   </div>
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 text-black">
                   <label className="font-semibold text-left">Password</label>
                   <div className="relative">
                     <input

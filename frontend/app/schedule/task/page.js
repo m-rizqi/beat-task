@@ -71,7 +71,6 @@ export default function Home() {
       return;
     }
     try {
-      console.log('a');
       const res = await fetch(`http://localhost:4000/api/tasks/`, {
         method: 'POST',
         headers: {

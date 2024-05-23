@@ -97,15 +97,17 @@ exports.getAllActivities = async (req, res) => {
   const userID = req.userId;
   try {
     const activities = await Activity.findOne({ userID: userID });
-    res.status(200).json(activities);
+
     if (!activities) {
       return res.status(404).json({ msg: 'Activities not found' });
     }
-    res.status(201).json(activities);
+
+    return res.status(200).json(activities);
   } catch (err) {
-    res.status(500).send(err);
+    return res.status(500).json({ error: 'Server error', details: err });
   }
 };
+
 
 exports.getActivity = async (req, res) => {
   const userID = req.userId;
