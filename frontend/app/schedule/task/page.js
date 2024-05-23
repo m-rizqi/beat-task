@@ -18,6 +18,7 @@ export default function Home() {
   const [todo, setTodo] = useState([]);
   const [progress, setProgress] = useState([]);
   const [done, setDone] = useState([]);
+  const [taskStatus, setStatus] = useState('');
 
   useEffect(() => {
     loadTask();
@@ -94,7 +95,19 @@ export default function Home() {
     }
   };
 
-  const onClose = () => setShowModal(false);
+  const onClose = () => {
+    setShowModal(false);
+    resetForm()
+  }
+
+  const resetForm = () => {
+    setTaskName('');
+    setDescription('');
+    setDifficulty('');
+    setPriority('');
+    setDeadline('');
+    setStatus('');
+  };
 
   return (
     <div className="bg-white content-container text-black">
@@ -161,6 +174,21 @@ export default function Home() {
                 onChange={(e) => setDeadline(e.target.value)}
                 className="bg-lightblue px-6 py-2 rounded-md text-gray-500"
               />
+            </div>
+            <div className="form-group">
+              <label>Status</label>
+              <select
+                value={taskStatus}
+                onChange={(e) => setStatus(e.target.value)}
+                className="bg-lightblue px-6 py-2 rounded-md text-gray-500"
+              >
+                <option value="" disabled>
+                  Select
+                </option>
+                <option value="Very Easy">To Do</option>
+                <option value="Easy">In Progress</option>
+                <option value="Medium">Done</option>
+              </select>
             </div>
             <div className="flex flex-row text-sm justify-end">
               <button
