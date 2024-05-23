@@ -32,7 +32,6 @@ export default function UserLogin() {
       const data = await res.json();
       console.log(data);
       document.cookie = `token=${data.token}; path=/`;
-      document.cookie = `userId=${data.userId}; path=/`;
       window.location.href = '/';
     } catch (err) {
       console.error(err);
