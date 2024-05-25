@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import Navbar from "../../components/navbar";
-import Modal from "../../components/modal";
-import ScheduleCard from "../../components/scheduleCard";
+import Navbar from '../../components/navbar';
+import Modal from '../../components/modal';
+import ScheduleCard from '../../components/scheduleCard';
 //import HomeCard from "../components/homeCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
-  const [activityName, setActivityName] = useState("");
-  const [activityStart, setActivityStart] = useState("");
-  const [activityEnd, setActivityEnd] = useState("");
-  const [repeatVar, setRepeatVar] = useState("Select");
+  const [activityName, setActivityName] = useState('');
+  const [activityStart, setActivityStart] = useState('');
+  const [activityEnd, setActivityEnd] = useState('');
+  const [repeatVar, setRepeatVar] = useState('Select');
   const [repeatInterval, setRepeatInterval] = useState(0);
   const [activities, setActivities] = useState([]);
 
@@ -20,23 +20,23 @@ export default function Home() {
   }, []);
 
   const getCookie = (name) => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const cookieValue = document.cookie.match(
-        "(^|[^;]+)\\s*" + name + "\\s*=\\s*([^;]+)"
+        '(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)'
       );
-      return cookieValue ? cookieValue.pop() : "";
+      return cookieValue ? cookieValue.pop() : '';
     }
   };
 
-  const token = getCookie("token");
+  const token = getCookie('token');
 
   const loadActivities = async () => {
     try {
       const res = await fetch(`http://localhost:4000/api/activities/`, {
-        method: "GET",
+        method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       if (res.status === 401) throw new Error(res.body);
@@ -52,7 +52,7 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Lakukan sesuatu dengan data yang diinput
-    console.log("Data Activities:", {
+    console.log('Data Activities:', {
       activityName,
       activityStart,
       activityEnd,
@@ -64,11 +64,11 @@ export default function Home() {
       !activityName ||
       !activityStart ||
       !activityEnd ||
-      repeatVar === "Select" ||
+      repeatVar === 'Select' ||
       repeatInterval <= 0
     ) {
-      toast.error("Please fill all the fields!");
-      console.log("error");
+      toast.error('Please fill all the fields!');
+      console.log('error');
       return;
     }
 
@@ -82,9 +82,9 @@ export default function Home() {
     // Lakukan pengiriman data ke server atau penanganan lainnya di sini
     try {
       const res = await fetch(`http://localhost:4000//api/activities`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(newActivity),
       });
@@ -93,21 +93,33 @@ export default function Home() {
       console.log(data);
     } catch (err) {
       console.error(err);
-      toast.error("Error while creating activity");
+      toast.error('Error while creating activity');
     }
   };
 
-  const onClose = () => setShowModal(false);
-
   const formatDate = (date) => {
     const options = {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
     };
     return new Date(date).toLocaleDateString(undefined, options);
+  };
+
+  const onClose = () => {
+    setShowModal(false);
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setTaskName('');
+    setDescription('');
+    setDifficulty('');
+    setPriority('');
+    setDeadline('');
+    setStatus('');
   };
 
   return (
