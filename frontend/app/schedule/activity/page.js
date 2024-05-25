@@ -41,6 +41,8 @@ export default function Home() {
       });
       if (res.status === 401) throw new Error(res.body);
       const data = await res.json();
+      setActivities(data.activity);
+      console.log(data.activity);
     } catch (err) {
       console.error(err);
       // toast.error("Error while loading activities");
@@ -88,7 +90,6 @@ export default function Home() {
       });
       if (res.status === 401) throw new Error(res.body);
       const data = await res.json();
-      setActivities(data);
       console.log(data);
     } catch (err) {
       console.error(err);
@@ -208,7 +209,13 @@ export default function Home() {
               activity.repeatVar
             }, Interval: ${activity.repeatInterval}`;
 
-            <ScheduleCard key={index} name={activity.name} desc={desc} />;
+            return (
+              <ScheduleCard
+                key={index}
+                name={activity.activityName}
+                desc={desc}
+              />
+            );
           })}
           <button
             className="text-lg font-medium text-lightgray p-3 mt-3 hover:font-bold hover:text-zinc-600"
