@@ -120,6 +120,7 @@ export default function Home() {
       if (res.status === 401) throw new Error(res.body);
       toast.success('Task created successfully');
       setShowModal(false);
+      resetForm();
       loadTask();
     } catch (err) {
       console.error(err);
