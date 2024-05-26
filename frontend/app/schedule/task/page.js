@@ -3,7 +3,7 @@
 import Navbar from '../../components/navbar';
 import Modal from '../../components/modal';
 import ScheduleCard from '../../components/scheduleCard';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //import HomeCard from "../components/homeCard";
 import { useState, useEffect } from 'react';
@@ -118,6 +118,7 @@ export default function Home() {
         }),
       });
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Task created successfully');
       setShowModal(false);
       loadTask();
     } catch (err) {
@@ -155,6 +156,7 @@ export default function Home() {
         }
       );
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Task updated successfully');
       setShowEdit(false);
       loadTask();
     } catch (err) {
@@ -179,7 +181,6 @@ export default function Home() {
     setDifficulty('');
     setPriority('');
     setDeadline('');
-    setStatus('');
   };
 
   const deleteTask = async (id) => {
@@ -192,6 +193,7 @@ export default function Home() {
         },
       });
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Task deleted successfully');
       setShowDelete(false);
       setTaskDetail({});
       loadTask({
@@ -508,6 +510,7 @@ export default function Home() {
         </div>
       </div>
       <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+      <ToastContainer />
     </div>
   );
 }

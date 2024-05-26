@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function UserRegister() {
@@ -11,7 +11,6 @@ export default function UserRegister() {
     name: '',
     username: '',
     email: '',
-    // telp: "",
     password: '',
     confirmPassword: '',
   });
@@ -22,14 +21,7 @@ export default function UserRegister() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      !name ||
-      !username ||
-      !email ||
-      // !telp ||
-      !password ||
-      !confirmPassword
-    ) {
+    if (!name || !username || !email || !password || !confirmPassword) {
       toast.error('Please fill all the fields!');
       return;
     }
@@ -199,6 +191,7 @@ export default function UserRegister() {
           </form>
         </div>
       </main>
+      <ToastContainer />
     </div>
   );
 }

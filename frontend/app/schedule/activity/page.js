@@ -3,6 +3,8 @@
 import Navbar from '../../components/navbar';
 import Modal from '../../components/modal';
 import ScheduleCard from '../../components/scheduleCard';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //import HomeCard from "../components/homeCard";
 import { useState, useEffect } from 'react';
 
@@ -55,7 +57,7 @@ export default function Home() {
       console.log(data.activity);
     } catch (err) {
       console.error(err);
-      // toast.error("Error while loading activities");
+      toast.error('Error while loading activities');
     }
   };
 
@@ -129,6 +131,7 @@ export default function Home() {
         body: JSON.stringify(newActivity),
       });
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Activity created successfully');
       setShowModal(false);
       loadActivities();
     } catch (err) {
@@ -169,6 +172,7 @@ export default function Home() {
         }
       );
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Activity updated successfully');
       setShowEdit(false);
       loadActivities();
     } catch (err) {
@@ -216,6 +220,7 @@ export default function Home() {
         },
       });
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Activity deleted successfully');
       setShowDelete(false);
       setActivityDetail({});
       loadActivities({
@@ -490,6 +495,7 @@ export default function Home() {
         </div>
       </div>
       <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+      <ToastContainer />
     </div>
   );
 }

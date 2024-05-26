@@ -4,7 +4,7 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function UserLogin() {
@@ -30,12 +30,10 @@ export default function UserLogin() {
       });
       if (res.status === 401) throw new Error('Invalid username or password');
       const data = await res.json();
-      console.log(data);
       document.cookie = `token=${data.token}; path=/`;
       window.location.href = '/';
     } catch (err) {
-      console.error(err);
-      toast.error('Invalid username or password');
+      toast.error(err.message);
     }
   };
   return (
@@ -136,6 +134,7 @@ export default function UserLogin() {
           </div>
         </div>
       </main>
+      <ToastContainer />
     </div>
   );
 }
