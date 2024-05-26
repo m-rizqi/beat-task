@@ -195,6 +195,7 @@ export default function Home() {
       if (res.status === 401) throw new Error(res.body);
       toast.success('Task deleted successfully');
       setShowDelete(false);
+      setShowEdit(false);
       setTaskDetail({});
       loadTask({
         taskID: '',
@@ -298,7 +299,7 @@ export default function Home() {
 
       <Modal isVisible={showEdit} onClose={() => onEditClose()}>
         <div className="flex flex-col">
-          <form onSubmit={handleSubmit} className="form gap-6 m-4">
+          <div className="form gap-6 m-4">
             <div className="form-group">
               <input
                 type="text"
@@ -404,7 +405,7 @@ export default function Home() {
                 Save
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </Modal>
 
@@ -418,8 +419,6 @@ export default function Home() {
               <button
                 onClick={() => {
                   deleteTask(taskDetail.taskID);
-                  setShowDelete(false);
-                  setShowEdit(false);
                 }}
                 className="bg-red-700 text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
               >
