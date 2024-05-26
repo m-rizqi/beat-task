@@ -68,7 +68,7 @@ export default function UserLogin() {
             <p className="text-gray-400 mb-10">login into your account</p>
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col lg:px-5 xl:px-16"
+              className="flex flex-col lg:px-5 xl:px-16 text-black"
             >
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-2 text-black">

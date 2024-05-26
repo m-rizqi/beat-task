@@ -183,9 +183,9 @@ export default function UserRegister() {
               </button>
             </div>
             <div className="flex items-center justify-center text-xs mb-4">
-              <span>Don&apos;t have an account?&nbsp;</span>
+              <span>Already have an account?&nbsp;</span>
               <Link href="/login" className="underline">
-                Sign in
+                Log in
               </Link>
             </div>
           </form>
