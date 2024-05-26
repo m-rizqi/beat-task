@@ -39,8 +39,6 @@ export default function UserRegister() {
         body: JSON.stringify({ name, username, email, password }),
       });
       if (res.status === 401) throw new Error(res.body);
-      const data = await res.json();
-      console.log(data);
       toast.success('User registered successfully!');
       window.location.href = '/login';
     } catch (err) {
@@ -49,7 +47,7 @@ export default function UserRegister() {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-reg-bg bg-cover">
       <Head>
         <title>Rental Bahari | Register</title>
       </Head>
@@ -80,7 +78,7 @@ export default function UserRegister() {
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col px-20 md:px-28 lg:px-36 xl:px-44"
+            className="flex flex-col px-20 md:px-28 lg:px-36 xl:px-44 text-black"
           >
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1">
@@ -148,6 +146,7 @@ export default function UserRegister() {
                 </label>
                 <div className="relative">
                   <input
+                    type="password"
                     onChange={handleChange}
                     value={password}
                     name="password"
@@ -163,6 +162,7 @@ export default function UserRegister() {
                 </label>
                 <div className="relative">
                   <input
+                    type="password"
                     onChange={handleChange}
                     value={confirmPassword}
                     name="confirmPassword"
