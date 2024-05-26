@@ -8,6 +8,7 @@ exports.addActivity = async (req, res) => {
     if (!isAvailable) {
       const activityDocument = new Activity({
         userID,
+        ...req.body,
       });
       await activityDocument.save();
       res.status(201).send(activity);

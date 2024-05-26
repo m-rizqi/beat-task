@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setDescription] = useState('');
   const [taskDifficulty, setDifficulty] = useState('');
@@ -179,6 +180,33 @@ export default function Home() {
     setPriority('');
     setDeadline('');
     setStatus('');
+  };
+
+  const deleteTask = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:4000/api/tasks/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.status === 401) throw new Error(res.body);
+      setShowDelete(false);
+      setTaskDetail({});
+      loadTask({
+        taskID: '',
+        taskName: '',
+        taskDescription: '',
+        taskDifficulty: '',
+        taskPriority: '',
+        taskDeadline: '',
+        taskStatus: '',
+      });
+    } catch (err) {
+      console.error(err);
+      toast.error('Error while deleting activity');
+    }
   };
 
   return (
@@ -355,6 +383,12 @@ export default function Home() {
             </div>
             <div className="flex flex-row text-sm justify-end">
               <button
+                onClick={() => setShowDelete(true)}
+                className="bg-red-700 text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
+              >
+                Delete
+              </button>
+              <button
                 onClick={() => onEditClose()}
                 className="bg-darkeryellow text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
               >
@@ -371,6 +405,36 @@ export default function Home() {
           </form>
         </div>
       </Modal>
+
+      {!showDelete ? null : (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[100]">
+          <div className="bg-white p-6 rounded-lg">
+            <p className="text-lg font-semibold mb-4">
+              Are you sure you want to delete?
+            </p>
+            <div className="flex justify-end">
+              <button
+                onClick={() => {
+                  deleteTask(taskDetail.taskID);
+                  setShowDelete(false);
+                  setShowEdit(false);
+                }}
+                className="bg-red-700 text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => {
+                  setShowDelete(false);
+                }}
+                className="bg-darkeryellow text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex flex-row mt-2">
         <img src="/assets/schedule.png" className="img-logo2 p-3 ml-3" />

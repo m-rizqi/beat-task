@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [activityName, setActivityName] = useState('');
   const [activityStart, setActivityStart] = useState('');
   const [activityEnd, setActivityEnd] = useState('');
@@ -119,16 +120,17 @@ export default function Home() {
     };
     // Lakukan pengiriman data ke server atau penanganan lainnya di sini
     try {
-      const res = await fetch(`http://localhost:4000//api/activities`, {
+      const res = await fetch(`http://localhost:4000/api/activities`, {
         method: 'POST',
         headers: {
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newActivity),
       });
       if (res.status === 401) throw new Error(res.body);
-      const data = await res.json();
-      console.log(data);
+      setShowModal(false);
+      loadActivities();
     } catch (err) {
       console.error(err);
       toast.error('Error while creating activity');
@@ -204,6 +206,32 @@ export default function Home() {
     setRepeatInterval('');
   };
 
+  const deleteActivity = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:4000/api/activities/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.status === 401) throw new Error(res.body);
+      setShowDelete(false);
+      setActivityDetail({});
+      loadActivities({
+        activityId: '',
+        activityName: '',
+        activityStart: '',
+        activityEnd: '',
+        repeatVar: '',
+        repeatInterval: '',
+      });
+    } catch (err) {
+      console.error(err);
+      toast.error('Error while deleting activity');
+    }
+  };
+
   return (
     <div className="bg-white content-container text-black">
       <Navbar></Navbar>
@@ -265,13 +293,13 @@ export default function Home() {
             </div>
             <div className="flex flex-row text-sm justify-end">
               <button
-                type="submit"
+                onClick={() => onClose()}
                 className="bg-darkeryellow text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
               >
                 Cancel
               </button>
               <button
-                onClick={() => onClose()}
+                type="submit"
                 className="bg-darkgreen text-white font-semibold px-6 py-2 rounded-lg"
               >
                 Add
@@ -360,6 +388,12 @@ export default function Home() {
             </div>
             <div className="flex flex-row text-sm justify-end">
               <button
+                onClick={() => setShowDelete(true)}
+                className="bg-red-700 text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
+              >
+                Delete
+              </button>
+              <button
                 onClick={() => onEditClose()}
                 className="bg-darkeryellow text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
               >
@@ -376,6 +410,37 @@ export default function Home() {
           </form>
         </div>
       </Modal>
+
+      {!showDelete ? null : (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[100]">
+          <div className="bg-white p-6 rounded-lg">
+            <p className="text-lg font-semibold mb-4">
+              Are you sure you want to delete?
+            </p>
+            <div className="flex justify-end">
+              <button
+                onClick={() => {
+                  deleteActivity(activityDetail.activityId);
+                  setShowDelete(false);
+                  setShowEdit(false);
+                }}
+                className="bg-red-700 text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => {
+                  setShowDelete(false);
+                }}
+                className="bg-darkeryellow text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-row mt-3">
         <img src="/assets/schedule1.png" className="img-schedule p-3 ml-8" />
         <div className="mt-3 text-purple text-lg font-semibold">Schedule</div>
