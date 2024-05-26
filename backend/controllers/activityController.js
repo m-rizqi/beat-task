@@ -8,6 +8,7 @@ exports.addActivity = async (req, res) => {
     if (!isAvailable) {
       const activityDocument = new Activity({
         userID,
+        ...req.body,
       });
       await activityDocument.save();
       res.status(201).send(activity);
@@ -97,13 +98,14 @@ exports.getAllActivities = async (req, res) => {
   const userID = req.userId;
   try {
     const activities = await Activity.findOne({ userID: userID });
-    res.status(200).json(activities);
+
     if (!activities) {
       return res.status(404).json({ msg: 'Activities not found' });
     }
-    res.status(201).json(activities);
+
+    return res.status(200).json(activities);
   } catch (err) {
-    res.status(500).send(err);
+    return res.status(500).json({ error: 'Server error', details: err });
   }
 };
 
@@ -112,21 +114,21 @@ exports.getActivity = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send('Activity not exist');
-  try {
-    const activity = await Activity.findById(req.params.id);
-    if (!activity) {
-      return res.status(404).json({ msg: 'Activity not found' });
-    }
-    res.json(activity);
-  } catch (err) {
-    res.status(500).send(err);
-  }
+  // try {
+  //   const activity = await Activity.findById(req.params.id);
+  //   if (!activity) {
+  //     return res.status(404).json({ msg: 'Activity not found' });
+  //   }
+  //   res.json(activity);
+  // } catch (err) {
+  //   res.status(500).send(err);
+  // }
   try {
     const activityCheck = await Activity.find(
-      { userID: userID, 'activitiy._id': id },
+      { userID: userID, 'activity._id': id },
       { 'activity.$': 1 }
     );
-    if (taskCheck.length === 0) {
+    if (activityCheck.length === 0) {
       return res.status(404).send('Activity not exist');
     }
 
