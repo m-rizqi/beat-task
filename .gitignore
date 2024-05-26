@@ -30,3 +30,4 @@ backend/.DS_Store
 
 # Ignore log files
 backend/*.log
+.vercel
