@@ -12,17 +12,17 @@ export default function Home() {
   const [activityName, setActivityName] = useState('');
   const [activityStart, setActivityStart] = useState('');
   const [activityEnd, setActivityEnd] = useState('');
-  const [repeatVar, setRepeatVar] = useState('Select');
+  const [repeatVar, setRepeatVar] = useState('');
   const [repeatInterval, setRepeatInterval] = useState(0);
   const [activities, setActivities] = useState([]);
   const [activityDetail, setActivityDetail] = useState({
     activityId: '',
-    activityName : '',
-    activityStart : '',
-    activityEnd : '',
-    repeatVar : '',
-    repeatInterval : '',
-  })
+    activityName: '',
+    activityStart: '',
+    activityEnd: '',
+    repeatVar: '',
+    repeatInterval: '',
+  });
 
   useEffect(() => {
     loadActivities();
@@ -74,7 +74,12 @@ export default function Home() {
       let activityStartText = activityStartDate.toISOString().split('T')[0];
       let activityEndText = activityEndDate.toISOString().split('T')[0];
       console.log(data);
-      setActivityDetail({ ...data, activityStart: activityStartText, activityEnd: activityEndText, activityId: id });
+      setActivityDetail({
+        ...data,
+        activityStart: activityStartText,
+        activityEnd: activityEndText,
+        activityId: id,
+      });
       setShowEdit(true);
     } catch (err) {
       console.error(err);
@@ -97,8 +102,8 @@ export default function Home() {
       !activityName ||
       !activityStart ||
       !activityEnd ||
-      repeatVar === 'Select' ||
-      repeatInterval <= 0
+      !repeatVar ||
+      repeatInterval < 1
     ) {
       toast.error('Please fill all the fields!');
       console.log('error');
@@ -132,43 +137,35 @@ export default function Home() {
 
   const updateActivity = async (e) => {
     e.preventDefault();
+    console.log(activityDetail);
     // Lakukan sesuatu dengan data yang diinput
-    console.log('Data Activities:', {
-      activityName,
-      activityStart,
-      activityEnd,
-      repeatVar,
-      repeatInterval,
-    });
     // Lakukan pengiriman data ke server atau penanganan lainnya di sini
-    if (
-      !activityName ||
-      !activityStart ||
-      !activityEnd ||
-      repeatVar === 'Select' ||
-      repeatInterval <= 0
-    ) {
+    if (!activityDetail.activityName || activityDetail.repeatInterval < 1) {
       toast.error('Please fill all the fields!');
       console.log('error');
       return;
     }
 
     const updateActivity = {
-      activityName: activityName,
-      activityStart: activityStart,
-      activityEnd: activityEnd,
-      repeatVar: repeatVar,
-      repeatInterval: repeatInterval,
+      activityName: activityDetail.activityName,
+      activityStart: activityDetail.activityStart,
+      activityEnd: activityDetail.activityEnd,
+      repeatVar: activityDetail.repeatVar,
+      repeatInterval: activityDetail.repeatInterval,
     };
     // Lakukan pengiriman data ke server atau penanganan lainnya di sini
     try {
-      const res = await fetch(`http://localhost:4000//api/activities/${activityDetail.activityId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updateActivity),
-      });
+      const res = await fetch(
+        `http://localhost:4000/api/activities/${activityDetail.activityId}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updateActivity),
+        }
+      );
       if (res.status === 401) throw new Error(res.body);
       setShowEdit(false);
       loadActivities();
@@ -292,7 +289,12 @@ export default function Home() {
                 placeholder="Enter Activity Name"
                 value={activityDetail.activityName}
                 className="text-2xl font-semibold"
-                onChange={(e) => setActivityDetail({...activityDetail, activityName: e.target.value})}
+                onChange={(e) =>
+                  setActivityDetail({
+                    ...activityDetail,
+                    activityName: e.target.value,
+                  })
+                }
               />
             </div>
             <div className="form-group">
@@ -300,7 +302,12 @@ export default function Home() {
               <input
                 type="date"
                 value={activityDetail.activityStart}
-                onChange={(e) => setActivityDetail({...activityDetail, activityStart: e.target.value})}
+                onChange={(e) =>
+                  setActivityDetail({
+                    ...activityDetail,
+                    activityStart: e.target.value,
+                  })
+                }
                 className="bg-lightblue px-5 py-2 rounded-md"
               />
             </div>
@@ -309,7 +316,12 @@ export default function Home() {
               <input
                 type="date"
                 value={activityDetail.activityEnd}
-                onChange={(e) => setActivityDetail({...activityDetail, activityEnd: e.target.value})}
+                onChange={(e) =>
+                  setActivityDetail({
+                    ...activityDetail,
+                    activityEnd: e.target.value,
+                  })
+                }
                 className="bg-lightblue px-5 py-2 rounded-md"
               />
             </div>
@@ -317,12 +329,14 @@ export default function Home() {
               <label>Repeat Every</label>
               <select
                 value={activityDetail.repeatVar}
-                onChange={(e) => setActivityDetail({...activityDetail, repeatVar: e.target.value})}
+                onChange={(e) =>
+                  setActivityDetail({
+                    ...activityDetail,
+                    repeatVar: e.target.value,
+                  })
+                }
                 className="bg-lightblue px-5 py-2 rounded-md"
               >
-                <option value="" disabled>
-                  Select
-                </option>
                 <option value="daily">Hari</option>
                 <option value="weekly">Minggu</option>
                 <option value="monthly">Bulan</option>
@@ -334,20 +348,26 @@ export default function Home() {
               <input
                 type="number"
                 value={activityDetail.repeatInterval}
-                onChange={(e) => setActivityDetail({...activityDetail, repeatInterval: e.target.value})}
+                onChange={(e) =>
+                  setActivityDetail({
+                    ...activityDetail,
+                    repeatInterval: e.target.value,
+                  })
+                }
                 placeholder="Enter Repeat Interval"
                 className="p-2 border rounded text-gray text-sm"
               />
             </div>
             <div className="flex flex-row text-sm justify-end">
               <button
-                type="submit"
+                onClick={() => onEditClose()}
                 className="bg-darkeryellow text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
               >
                 Cancel
               </button>
               <button
-                onClick={() => updateActivity()}
+                type="submit"
+                onClick={updateActivity}
                 className="bg-darkgreen text-white font-semibold px-6 py-2 rounded-lg"
               >
                 Save
@@ -372,23 +392,30 @@ export default function Home() {
       </div>
       <div className="flex flex-row justify-center gap-10 mt-7">
         <div>
-          {activities.length > 0 ? (activities.map((activity, index) => {
-            const desc = `Start: ${formatDate(
-              activity.activityStart
-            )}, End: ${formatDate(activity.activityEnd)}, Repeat: ${
-              activity.repeatVar
-            }, Interval: ${activity.repeatInterval}`;
+          {activities.length > 0 ? (
+            activities.map((activity, index) => {
+              const desc = `Start: ${formatDate(
+                activity.activityStart
+              )}, End: ${formatDate(activity.activityEnd)}, Repeat: ${
+                activity.repeatVar
+              }, Interval: ${activity.repeatInterval}`;
 
-            return (
-              <div key={`div_${activity._id}`} onClick={() => getActivity(activity._id)}>
-                <ScheduleCard
-                key={index}
-                name={activity.activityName}
-                desc={desc}
-              />
-              </div>
-            );
-          })) : (<p className="text-black">No activity has been added</p>)}
+              return (
+                <div
+                  key={`div_${activity._id}`}
+                  onClick={() => getActivity(activity._id)}
+                >
+                  <ScheduleCard
+                    key={index}
+                    name={activity.activityName}
+                    desc={desc}
+                  />
+                </div>
+              );
+            })
+          ) : (
+            <p className="text-black">No activity has been added</p>
+          )}
           <button
             className="text-lg font-medium text-lightgray p-3 mt-3 hover:font-bold hover:text-zinc-600"
             onClick={() => setShowModal(true)}

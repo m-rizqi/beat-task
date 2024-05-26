@@ -108,27 +108,26 @@ exports.getAllActivities = async (req, res) => {
   }
 };
 
-
 exports.getActivity = async (req, res) => {
   const userID = req.userId;
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send('Activity not exist');
-  try {
-    const activity = await Activity.findById(req.params.id);
-    if (!activity) {
-      return res.status(404).json({ msg: 'Activity not found' });
-    }
-    res.json(activity);
-  } catch (err) {
-    res.status(500).send(err);
-  }
+  // try {
+  //   const activity = await Activity.findById(req.params.id);
+  //   if (!activity) {
+  //     return res.status(404).json({ msg: 'Activity not found' });
+  //   }
+  //   res.json(activity);
+  // } catch (err) {
+  //   res.status(500).send(err);
+  // }
   try {
     const activityCheck = await Activity.find(
-      { userID: userID, 'activitiy._id': id },
+      { userID: userID, 'activity._id': id },
       { 'activity.$': 1 }
     );
-    if (taskCheck.length === 0) {
+    if (activityCheck.length === 0) {
       return res.status(404).send('Activity not exist');
     }
 

@@ -16,7 +16,6 @@ export default function Home() {
   const [taskDifficulty, setDifficulty] = useState('');
   const [taskPriority, setPriority] = useState('');
   const [taskDeadline, setDeadline] = useState('');
-  const [taskStatus, setStatus] = useState('todo');
   const [taskDetail, setTaskDetail] = useState({
     taskID: '',
     taskName: '',
