@@ -174,6 +174,7 @@ export default function Home() {
       if (res.status === 401) throw new Error(res.body);
       toast.success('Activity updated successfully');
       setShowEdit(false);
+      resetForm();
       loadActivities();
     } catch (err) {
       console.error(err);
