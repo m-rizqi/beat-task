@@ -31,7 +31,7 @@ const Profile = () => {
 
   const loadProfile = async () => {
     try {
-      const res = await fetch(`http://localhost:4000/api/users/`, {
+      const res = await fetch(`http://4.236.177.229:4000/api/users/`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -51,7 +51,7 @@ const Profile = () => {
   const updateProfile = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:4000/api/users/`, {
+      const res = await fetch(`http://4.236.177.229:4000/api/users/`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,

@@ -21,7 +21,7 @@ export default function UserLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:4000/api/auth/signin`, {
+      const res = await fetch(`http://4.236.177.229:4000/api/auth/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
