@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Navbar from '../components/navbar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
   const [profile, setProfile] = useState('');
@@ -64,6 +66,7 @@ const Profile = () => {
       if (res.status === 401) throw new Error(res.body);
       const data = await res.json();
       setProfile(data);
+      toast.success('Profile updated successfully');
       setIsEdit({ ...data, status: false });
     } catch (err) {
       console.error(err);

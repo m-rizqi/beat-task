@@ -3,6 +3,8 @@
 import Navbar from '../../components/navbar';
 import Modal from '../../components/modal';
 import ScheduleCard from '../../components/scheduleCard';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //import HomeCard from "../components/homeCard";
 import { useState, useEffect } from 'react';
 
@@ -55,7 +57,7 @@ export default function Home() {
       console.log(data.activity);
     } catch (err) {
       console.error(err);
-      // toast.error("Error while loading activities");
+      toast.error('Error while loading activities');
     }
   };
 
@@ -129,6 +131,7 @@ export default function Home() {
         body: JSON.stringify(newActivity),
       });
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Activity created successfully');
       setShowModal(false);
       loadActivities();
     } catch (err) {
@@ -169,7 +172,9 @@ export default function Home() {
         }
       );
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Activity updated successfully');
       setShowEdit(false);
+      resetForm();
       loadActivities();
     } catch (err) {
       console.error(err);
@@ -216,9 +221,10 @@ export default function Home() {
         },
       });
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Activity deleted successfully');
       setShowDelete(false);
-      setActivityDetail({});
-      loadActivities({
+      setShowEdit(false);
+      setActivityDetail({
         activityId: '',
         activityName: '',
         activityStart: '',
@@ -226,6 +232,8 @@ export default function Home() {
         repeatVar: '',
         repeatInterval: '',
       });
+
+      loadActivities();
     } catch (err) {
       console.error(err);
       toast.error('Error while deleting activity');
@@ -310,7 +318,7 @@ export default function Home() {
       </Modal>
       <Modal isVisible={showEdit} onClose={() => onEditClose()}>
         <div className="flex flex-col">
-          <form onSubmit={handleSubmit} className="form gap-6 m-4">
+          <div className="form gap-6 m-4">
             <div className="form-group">
               <input
                 type="text"
@@ -407,7 +415,7 @@ export default function Home() {
                 Save
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </Modal>
 
@@ -419,11 +427,7 @@ export default function Home() {
             </p>
             <div className="flex justify-end">
               <button
-                onClick={() => {
-                  deleteActivity(activityDetail.activityId);
-                  setShowDelete(false);
-                  setShowEdit(false);
-                }}
+                onClick={() => deleteActivity(activityDetail.activityId)}
                 className="bg-red-700 text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
               >
                 Delete
@@ -490,6 +494,7 @@ export default function Home() {
         </div>
       </div>
       <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+      <ToastContainer />
     </div>
   );
 }

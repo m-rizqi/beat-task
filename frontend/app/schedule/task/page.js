@@ -3,7 +3,7 @@
 import Navbar from '../../components/navbar';
 import Modal from '../../components/modal';
 import ScheduleCard from '../../components/scheduleCard';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //import HomeCard from "../components/homeCard";
 import { useState, useEffect } from 'react';
@@ -118,7 +118,9 @@ export default function Home() {
         }),
       });
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Task created successfully');
       setShowModal(false);
+      resetForm();
       loadTask();
     } catch (err) {
       console.error(err);
@@ -155,6 +157,7 @@ export default function Home() {
         }
       );
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Task updated successfully');
       setShowEdit(false);
       loadTask();
     } catch (err) {
@@ -179,7 +182,6 @@ export default function Home() {
     setDifficulty('');
     setPriority('');
     setDeadline('');
-    setStatus('');
   };
 
   const deleteTask = async (id) => {
@@ -192,7 +194,9 @@ export default function Home() {
         },
       });
       if (res.status === 401) throw new Error(res.body);
+      toast.success('Task deleted successfully');
       setShowDelete(false);
+      setShowEdit(false);
       setTaskDetail({});
       loadTask({
         taskID: '',
@@ -296,7 +300,7 @@ export default function Home() {
 
       <Modal isVisible={showEdit} onClose={() => onEditClose()}>
         <div className="flex flex-col">
-          <form onSubmit={handleSubmit} className="form gap-6 m-4">
+          <div className="form gap-6 m-4">
             <div className="form-group">
               <input
                 type="text"
@@ -402,7 +406,7 @@ export default function Home() {
                 Save
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </Modal>
 
@@ -416,8 +420,6 @@ export default function Home() {
               <button
                 onClick={() => {
                   deleteTask(taskDetail.taskID);
-                  setShowDelete(false);
-                  setShowEdit(false);
                 }}
                 className="bg-red-700 text-white font-semibold mr-2.5 px-4 py-2 rounded-lg"
               >
@@ -508,6 +510,7 @@ export default function Home() {
         </div>
       </div>
       <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+      <ToastContainer />
     </div>
   );
 }
