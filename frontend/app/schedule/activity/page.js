@@ -44,7 +44,7 @@ export default function Home() {
 
   const loadActivities = async () => {
     try {
-      const res = await fetch(`http://localhost:4000/api/activities/`, {
+      const res = await fetch(`http://4.236.177.229:4000/api/activities/`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -63,7 +63,7 @@ export default function Home() {
 
   const getActivity = async (id) => {
     try {
-      const res = await fetch(`http://localhost:4000/api/activities/${id}`, {
+      const res = await fetch(`http://4.236.177.229:4000/api/activities/${id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -122,7 +122,7 @@ export default function Home() {
     };
     // Lakukan pengiriman data ke server atau penanganan lainnya di sini
     try {
-      const res = await fetch(`http://localhost:4000/api/activities`, {
+      const res = await fetch(`http://4.236.177.229:4000/api/activities`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -161,7 +161,7 @@ export default function Home() {
     // Lakukan pengiriman data ke server atau penanganan lainnya di sini
     try {
       const res = await fetch(
-        `http://localhost:4000/api/activities/${activityDetail.activityId}`,
+        `http://4.236.177.229:4000/api/activities/${activityDetail.activityId}`,
         {
           method: 'PUT',
           headers: {
@@ -213,7 +213,7 @@ export default function Home() {
 
   const deleteActivity = async (id) => {
     try {
-      const res = await fetch(`http://localhost:4000/api/activities/${id}`, {
+      const res = await fetch(`http://4.236.177.229:4000/api/activities/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

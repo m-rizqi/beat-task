@@ -47,7 +47,7 @@ export default function Home() {
 
   const loadTask = async () => {
     try {
-      const res = await fetch(`http://localhost:4000/api/tasks/`, {
+      const res = await fetch(`http://4.236.177.229:4000/api/tasks/`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ export default function Home() {
 
   const getTask = async (id) => {
     try {
-      const res = await fetch(`http://localhost:4000/api/tasks/${id}`, {
+      const res = await fetch(`http://4.236.177.229:4000/api/tasks/${id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -103,7 +103,7 @@ export default function Home() {
       return;
     }
     try {
-      const res = await fetch(`http://localhost:4000/api/tasks/`, {
+      const res = await fetch(`http://4.236.177.229:4000/api/tasks/`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -139,7 +139,7 @@ export default function Home() {
     }
     try {
       const res = await fetch(
-        `http://localhost:4000/api/tasks/${taskDetail.taskID}`,
+        `http://4.236.177.229:4000/api/tasks/${taskDetail.taskID}`,
         {
           method: 'PUT',
           headers: {
@@ -186,7 +186,7 @@ export default function Home() {
 
   const deleteTask = async (id) => {
     try {
-      const res = await fetch(`http://localhost:4000/api/tasks/${id}`, {
+      const res = await fetch(`http://4.236.177.229:4000/api/tasks/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

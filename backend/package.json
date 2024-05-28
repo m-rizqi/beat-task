@@ -4,10 +4,11 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "set NODE_ENV=development&& nodemon server.js",
     "stg": "set NODE_ENV=staging&& nodemon server.js",
-    "prod": "set NODE_ENV=production&& nodemon server.js"
+    "prod": "set NODE_ENV=production&& nodemon server.js",
+    "start": "node server.js",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=5000"
   },
   "keywords": [],
   "author": "Muhammad Rizqi, Perwira Akhdan Z. Siti Hashifah A.",
