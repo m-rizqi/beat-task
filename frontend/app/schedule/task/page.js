@@ -47,7 +47,7 @@ export default function Home() {
 
   const loadTask = async () => {
     try {
-      const res = await fetch(`http://4.236.177.229:4000/api/tasks/`, {
+      const res = await fetch(`http://localhost:4000/api/tasks/`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ export default function Home() {
 
   const getTask = async (id) => {
     try {
-      const res = await fetch(`http://4.236.177.229:4000/api/tasks/${id}`, {
+      const res = await fetch(`http://localhost:4000/api/tasks/${id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -77,7 +77,34 @@ export default function Home() {
       if (res.status === 401) throw new Error(res.body);
       const data = await res.json();
       let deadlineDate = new Date(data.taskDeadline);
-      let deadline = deadlineDate.toISOString().split('T')[0];
+      let deadlineYear = deadlineDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        year: 'numeric',
+      });
+      let deadlineMonth = deadlineDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        month: '2-digit',
+      });
+      let deadlineDay = deadlineDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        day: '2-digit',
+      });
+      let deadlineHour = deadlineDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        hour: '2-digit',
+        hour12: false,
+      });
+      let deadlineMinute = deadlineDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        minute: '2-digit',
+      });
+      // let deadline = deadlineDate.toISOString();
+      let deadline =
+        deadlineMinute < 10
+          ? `${deadlineYear}-${deadlineMonth}-${deadlineDay}T${deadlineHour}:0${deadlineMinute}`
+          : `${deadlineYear}-${deadlineMonth}-${deadlineDay}T${deadlineHour}:${deadlineMinute}`;
+      console.log(deadlineMinute);
+      console.log(deadline);
       console.log(data);
       setTaskDetail({ ...data, taskDeadline: deadline, taskID: id });
       setShowEdit(true);
@@ -103,7 +130,7 @@ export default function Home() {
       return;
     }
     try {
-      const res = await fetch(`http://4.236.177.229:4000/api/tasks/`, {
+      const res = await fetch(`http://localhost:4000/api/tasks/`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -139,7 +166,7 @@ export default function Home() {
     }
     try {
       const res = await fetch(
-        `http://4.236.177.229:4000/api/tasks/${taskDetail.taskID}`,
+        `http://localhost:4000/api/tasks/${taskDetail.taskID}`,
         {
           method: 'PUT',
           headers: {
@@ -186,7 +213,7 @@ export default function Home() {
 
   const deleteTask = async (id) => {
     try {
-      const res = await fetch(`http://4.236.177.229:4000/api/tasks/${id}`, {
+      const res = await fetch(`http://localhost:4000/api/tasks/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -273,9 +300,11 @@ export default function Home() {
             <div className="form-group">
               <label>Deadline</label>
               <input
-                type="date"
+                type="datetime-local"
                 value={taskDeadline}
-                onChange={(e) => setDeadline(e.target.value)}
+                onChange={(e) => {
+                  setDeadline(e.target.value);
+                }}
                 className="bg-lightblue px-6 py-2 rounded-md text-gray-500"
               />
             </div>
@@ -363,7 +392,7 @@ export default function Home() {
             <div className="form-group">
               <label>Deadline</label>
               <input
-                type="date"
+                type="datetime-local"
                 value={taskDetail.taskDeadline}
                 onChange={(e) =>
                   setTaskDetail({ ...taskDetail, taskDeadline: e.target.value })

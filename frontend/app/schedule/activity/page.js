@@ -44,7 +44,7 @@ export default function Home() {
 
   const loadActivities = async () => {
     try {
-      const res = await fetch(`http://4.236.177.229:4000/api/activities/`, {
+      const res = await fetch(`http://localhost:4000/api/activities/`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -63,7 +63,7 @@ export default function Home() {
 
   const getActivity = async (id) => {
     try {
-      const res = await fetch(`http://4.236.177.229:4000/api/activities/${id}`, {
+      const res = await fetch(`http://localhost:4000/api/activities/${id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -73,9 +73,57 @@ export default function Home() {
       if (res.status === 401) throw new Error(res.body);
       const data = await res.json();
       let activityStartDate = new Date(data.activityStart);
+      let activityStartYear = activityStartDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        year: 'numeric',
+      });
+      let activityStartMonth = activityStartDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        month: '2-digit',
+      });
+      let activityStartDay = activityStartDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        day: '2-digit',
+      });
+      let activityStartHour = activityStartDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        hour: '2-digit',
+        hour12: false,
+      });
+      let activityStartMinute = activityStartDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        minute: '2-digit',
+      });
       let activityEndDate = new Date(data.activityEnd);
-      let activityStartText = activityStartDate.toISOString().split('T')[0];
-      let activityEndText = activityEndDate.toISOString().split('T')[0];
+      let activityEndYear = activityEndDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        year: 'numeric',
+      });
+      let activityEndMonth = activityEndDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        month: '2-digit',
+      });
+      let activityEndDay = activityEndDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        day: '2-digit',
+      });
+      let activityEndHour = activityEndDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        hour: '2-digit',
+        hour12: false,
+      });
+      let activityEndMinute = activityEndDate.toLocaleString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        minute: '2-digit',
+      });
+      let activityStartText =
+        activityStartMinute < 10
+          ? `${activityStartYear}-${activityStartMonth}-${activityStartDay}T${activityStartHour}:0${activityStartMinute}`
+          : `${activityStartYear}-${activityStartMonth}-${activityStartDay}T${activityStartHour}:${activityStartMinute}`;
+      let activityEndText =
+        activityEndMinute < 10
+          ? `${activityEndYear}-${activityEndMonth}-${activityEndDay}T${activityEndHour}:0${activityEndMinute}`
+          : `${activityEndYear}-${activityEndMonth}-${activityEndDay}T${activityEndHour}:${activityEndMinute}`;
       console.log(data);
       setActivityDetail({
         ...data,
@@ -122,7 +170,7 @@ export default function Home() {
     };
     // Lakukan pengiriman data ke server atau penanganan lainnya di sini
     try {
-      const res = await fetch(`http://4.236.177.229:4000/api/activities`, {
+      const res = await fetch(`http://localhost:4000/api/activities`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -161,7 +209,7 @@ export default function Home() {
     // Lakukan pengiriman data ke server atau penanganan lainnya di sini
     try {
       const res = await fetch(
-        `http://4.236.177.229:4000/api/activities/${activityDetail.activityId}`,
+        `http://localhost:4000/api/activities/${activityDetail.activityId}`,
         {
           method: 'PUT',
           headers: {
@@ -213,7 +261,7 @@ export default function Home() {
 
   const deleteActivity = async (id) => {
     try {
-      const res = await fetch(`http://4.236.177.229:4000/api/activities/${id}`, {
+      const res = await fetch(`http://localhost:4000/api/activities/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -258,7 +306,7 @@ export default function Home() {
             <div className="form-group">
               <label>Activity Start</label>
               <input
-                type="date"
+                type="datetime-local"
                 value={activityStart}
                 onChange={(e) => setActivityStart(e.target.value)}
                 className="bg-lightblue px-5 py-2 rounded-md"
@@ -267,7 +315,7 @@ export default function Home() {
             <div className="form-group">
               <label>Activity End</label>
               <input
-                type="date"
+                type="datetime-local"
                 value={activityEnd}
                 onChange={(e) => setActivityEnd(e.target.value)}
                 className="bg-lightblue px-5 py-2 rounded-md"
@@ -336,7 +384,7 @@ export default function Home() {
             <div className="form-group">
               <label>Activity Start</label>
               <input
-                type="date"
+                type="datetime-local"
                 value={activityDetail.activityStart}
                 onChange={(e) =>
                   setActivityDetail({
@@ -350,7 +398,7 @@ export default function Home() {
             <div className="form-group">
               <label>Activity End</label>
               <input
-                type="date"
+                type="datetime-local"
                 value={activityDetail.activityEnd}
                 onChange={(e) =>
                   setActivityDetail({
