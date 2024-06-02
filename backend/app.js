@@ -12,6 +12,7 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const activityRoutes = require('./routes/activityRoutes');
 const taskRoutes = require('./routes/taskRoutes');
+const scheduleRoutes = require('./routes/scheduleRoutes');
 
 const app = express();
 
@@ -56,6 +57,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', authMiddleware.authenticateToken, userRoutes);
 app.use('/api/activities', authMiddleware.authenticateToken, activityRoutes);
 app.use('/api/tasks', authMiddleware.authenticateToken, taskRoutes);
+app.use('/api/schedules', authMiddleware.authenticateToken, scheduleRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

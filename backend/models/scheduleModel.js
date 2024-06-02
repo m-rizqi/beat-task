@@ -24,10 +24,6 @@ const scheduleSchema = new Schema(
           type: Date,
           required: true,
         },
-        category: {
-          type: String,
-          required: true,
-        },
       },
     ],
   },

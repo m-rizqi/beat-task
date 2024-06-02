@@ -5,7 +5,6 @@ import Modal from '../../components/modal';
 import ScheduleCard from '../../components/scheduleCard';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-//import HomeCard from "../components/homeCard";
 import { useState, useEffect } from 'react';
 
 export default function Home() {
@@ -148,6 +147,7 @@ export default function Home() {
       toast.success('Task created successfully');
       setShowModal(false);
       resetForm();
+      setSchedule();
       loadTask();
     } catch (err) {
       console.error(err);
@@ -186,6 +186,7 @@ export default function Home() {
       if (res.status === 401) throw new Error(res.body);
       toast.success('Task updated successfully');
       setShowEdit(false);
+      setSchedule();
       loadTask();
     } catch (err) {
       console.error(err);
@@ -234,9 +235,47 @@ export default function Home() {
         taskDeadline: '',
         taskStatus: '',
       });
+      setSchedule();
     } catch (err) {
       console.error(err);
       toast.error('Error while deleting activity');
+    }
+  };
+
+  const setSchedule = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/schedule_tasks`, {
+        method: 'POST',
+        // mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(todo.concat(progress)),
+      });
+      if (res.status === 401) throw new Error(res.body);
+      const data = await res.json();
+      await updateSchedule(data);
+      toast.success('Schedule updated successfully');
+    } catch (err) {
+      console.error(err);
+      toast.error('Error while loading task');
+    }
+  };
+
+  const updateSchedule = async (task) => {
+    try {
+      const res = await fetch(`http://localhost:4000/api/schedules/`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(task),
+      });
+      if (res.status === 401) throw new Error(res.body);
+    } catch (err) {
+      console.error(err);
+      toast.error('Error while updating schedule');
     }
   };
 
