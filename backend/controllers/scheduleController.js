@@ -26,7 +26,6 @@ exports.addSchedule = async (req, res) => {
         { $push: { schedule: data } }
         // { new: true }
       );
-      console.log(scheduleList);
     }
     const updatedScheduleList = await Schedule.findOne({ userID: userID });
     res.status(201).json(updatedScheduleList);
@@ -38,7 +37,7 @@ exports.addSchedule = async (req, res) => {
 exports.getSchedule = async (req, res) => {
   const userID = req.userId;
   try {
-    const schedule = await Schedule.findOne({ userID: userID });
+    const { schedule } = await Schedule.findOne({ userID: userID });
 
     if (!schedule) {
       return res.status(404).send('Schedule not found');

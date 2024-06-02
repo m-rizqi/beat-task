@@ -26,7 +26,7 @@ export default function Home() {
 
   const loadSchedule = async () => {
     try {
-      const res = await fetch('http://localhost:4000/api/schedules/', {
+      const res = await fetch('http://20.2.28.134:4000/api/schedules/', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
