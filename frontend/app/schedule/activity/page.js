@@ -54,7 +54,6 @@ export default function Home() {
       if (res.status === 401) throw new Error(res.body);
       const data = await res.json();
       setActivities(data.activity);
-      console.log(data.activity);
     } catch (err) {
       console.error(err);
       toast.error('Error while loading activities');
@@ -181,6 +180,7 @@ export default function Home() {
       if (res.status === 401) throw new Error(res.body);
       toast.success('Activity created successfully');
       setShowModal(false);
+      resetForm();
       loadActivities();
     } catch (err) {
       console.error(err);

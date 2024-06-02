@@ -7,7 +7,7 @@ const ScheduleCard = ({ name, desc }) => {
         <div className="flex items-center text-base">
           <p className="font-semibold mr-2">{name}</p>
         </div>
-        <div className="mt-1 flex items-center text-base">{desc}</div>
+        <p className="mt-1 text-base overflow-hidden">{desc}</p>
       </div>
     </div>
   );
